@@ -1,0 +1,157 @@
+<div id="nuevasolicitudcontent" ng-controller="NuevaSolicitudCtrl">
+	<div id="includeMenucontent">
+		<div ng-include="'views/soporte/menuSoporte.html'" onload="includeCargado()"></div>
+	</div>
+	<div ng-switch on="vistaNuevaSolicitud">
+		<div id="capturarInventario" ng-switch-when="solicitaInventario">
+			<p>Para la atención de las solicitudes de servicio el IMTA cuenta con una "mesa de servicio", punto único para la recepción de las mismas, y su seguimiento desde su recepción hasta su atención satisfactoria, y será a través de la "mesa de servicio" que se turnen dichas solicitudes para su atención.</p>
+			<div class="card-panel contenedor z-depth-3" style="margin-top:20px; width:30%; text-align: center;">
+				<h4 class="center-align tituloUsuario">Capturar datos</h4>
+				<form ng-submit="comprobarInventario()">
+					<div class="input-field" >
+						<input class="inputUsuario" placeholder="Inventario" type="text" ng-model="$parent.inventario" class="validate" required="" aria-required="true" onkeypress='return event.charCode >= 48 && event.charCode <= 57'>
+					</div> 
+					<button class="btn waves-effect blue darken-3" type="submit">
+						Continuar
+					</button>
+				</form>
+			</div>
+		</div>
+		<div id="capturarSolicitud" ng-switch-when="inventarioAceptado">
+			<div class="card-panel contenedor z-depth-3" style="margin-top:20px;">
+				<h4 class="tituloUsuario">{{title + InventarioResult.id_inventario + ' - ' + InventarioResult.descripcion}}</h4>
+				<form ng-submit="guardarSolicitud()">
+					<div class="contenedorForm">
+						<div>
+							<label for="">Inventario:</label>
+							<div class="input-field">
+								<input class="inputUsuario" value="{{ InventarioResult.id_inventario }}" readonly >
+							</div>
+							<label for="">Descripción:</label>
+							<div class="input-field">
+								<textarea class="validate" required="" aria-required="true" rows="5" class="inputUsuario" placeholder="Descripción del servicio" class="materialize-textarea" 
+								ng-model="Solicitud.falla_reportada"></textarea>
+							</div>
+						</div>
+						<div>
+							<label for="">Servicio:</label>
+							<div class="input-field col s12">
+								<select class="selectUsuario" ng-model="Solicitud.servicio_solicitado_id">
+									<option value="" disabled selected>Selecciona el servicio solicitado</option>
+									<option ng-repeat="option in servicios" value="{{option.id_servicio_solicitado}}">{{option.servicio_solicitado}}</option>
+								</select>
+							</div>
+							<label for="">Observación:</label>
+							<div class="input-field">
+								<textarea  rows="5" class="inputUsuario" placeholder="Observación" class="materialize-textarea" 
+								ng-model="Solicitud.observaciones"></textarea>
+							</div>
+						</div>
+					</div>
+					<div class="contenedorForm2">
+						<div>
+							<label for="">Origen de Solicitud:</label>
+							<div class="input-field">
+								<input class="inputUsuario" 
+								value="{{UsuarioLogueado.nombre_usuario +' - '+ UsuarioLogueado.perfil.perfil}}" readonly>
+							</div>
+						</div>
+						<div>
+
+                        <label for="">Técnico asignado:</label>
+							<div class="input-field col s12">
+								<select class="selectUsuario" ng-model="Tecnico" ng-options="tecnicos.id_usuario as tecnicos.nombre for tecnicos in tecnicos">
+								</select>
+								<h1>{{titulo}}</h1>
+								
+							</div>
+						</div>
+						
+						<div>
+							<label for="">Solicitante del servicio:</label>
+							<div class="input-field">
+								<input class="inputUsuario" placeholder="Solicitante" ng-model="Solicitud.usuario_atendido">
+							</div>
+						</div>
+					</div>
+					<div id="botoneraSolicitud" class="btnCenter">
+						<div>
+							<div class="btn waves-effect blue darken-3" ng-click="verInformacion()" >
+								{{ buttonMessage }}
+							</div>
+						</div>
+						<div>
+							<button class="btn waves-effect blue darken-3" type="submit">
+								{{button}}
+							</button>
+						</div>
+					</div>
+				</form>
+				<!-- INFORMACION ADICIONAL DEL INVENTARIO -->
+				<div ng-if="informacionAdicional">
+					<h4 class="tituloUsuario">Información de inventario:</h4>
+					<div class="contenedorForm">
+						<div>
+							<label for="">Descripción:</label>
+							<div class="input-field">
+								<input class="inputUsuario" value="{{ InventarioResult.descripcion }}" readonly >
+							</div>
+							<label for="">Modelo:</label>
+							<div class="input-field">
+								<input class="inputUsuario" value="{{ InventarioResult.modelo.modelo_equipo  }}" readonly >
+							</div>
+						</div>
+						<div>
+							<label for="">Marca:</label>
+							<div class="input-field">
+								<input class="inputUsuario" value="{{ InventarioResult.modelo.tipo_marca_equipo.marca_equipo.marca_equipo }}" readonly >
+							</div>
+							<label for="">Serie:</label>
+							<div class="input-field">
+								<input class="inputUsuario" value="{{ InventarioResult.serie }}" readonly >
+							</div>
+						</div>
+					</div>
+					<h4 class="tituloUsuario">Resguardante:</h4>
+					<div class="contenedorForm2">
+						<div>
+							<label for="">Nombre:</label>
+							<div class="input-field">
+								<input class="inputUsuario" value="{{ InventarioResult.resguardante.nombre }}" readonly>
+							</div>
+						</div>
+						<div>
+							<label for="">Apellido paterno:</label>
+							<div class="input-field">
+								<input class="inputUsuario" value="{{ InventarioResult.resguardante.apellido_paterno }}" readonly>
+							</div>
+						</div>
+						<div>
+							<label for="">Apellido materno:</label>
+							<div class="input-field">
+								<input class="inputUsuario" value="{{ InventarioResult.resguardante.apellido_materno }}" readonly>
+							</div>
+						</div>
+					</div>
+					<div class="contenedorForm">
+						<div>
+							<label for="">Area:</label>
+							<div class="input-field">
+								<input class="inputUsuario" value="{{ InventarioResult.resguardante.subarea.area.area }}" readonly >
+							</div>
+						</div>
+						<div>
+							<label for="">Subarea:</label>
+							<div class="input-field">
+								<input class="inputUsuario" value="{{ InventarioResult.resguardante.subarea.subarea }}" readonly >
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+ 

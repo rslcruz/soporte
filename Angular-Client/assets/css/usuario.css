@@ -1,0 +1,16 @@
+.tituloUsuario{
+	font-size: 20pt;
+	margin-bottom: 40px;
+}
+
+.inputUsuario,.selectUsuario {
+	font-size: 13pt !important;
+}
+
+.selectUsuario:focus{
+	outline:none !important;
+}
+
+.select option:first-child{
+	color:blue !important;
+}

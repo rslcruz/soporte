@@ -1,0 +1,132 @@
+<div id="antivirusContent" ng-controller="AntivirusCtrl">
+	<div id="includeMenucontent">
+		<div ng-include="'views/administracion/menuAdministracion.html'" onload="includeCargado()"></div>
+	</div>
+	<div class="container">
+		<!-- BUSCADOR DE ANTIVIRUS -->
+		<div class="input-field" style="max-width:30%;margin: 20px auto 20px auto;">
+			<i class="material-icons prefix">search</i>
+			<input placeholder="Buscar Antivirus" type="text" ng-model="search" style="font-size: 13pt;">
+		</div>
+
+		<!-- TABLA PARA MOSTRAR LOS ANTIVIRUS -->
+		<table class="table table-bordered table-striped tableAdmCatEquipos">
+			<thead>
+				<tr>
+					<td class="tdCenter">
+						<a>N°</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'antivirus'; sortReverse = !sortReverse">Nombre</a>
+					</td>
+					<td class="tdCenter">
+						<a>Acciones</a>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="Antivirus in antivirus | orderBy:sortType:sortReverse | filter:search">
+					<td class="tdCenter">{{$index + 1}}</td>
+					<td class="tdDatos">{{ Antivirus.antivirus }}</td>
+					<td>
+						<div class="card-action" style="text-align:center;">
+							<a href="" data-toggle="modal" data-target="#myModalEditarAntivirus" ng-click="modalEditarAntivirus(Antivirus.id_antivirus)">
+								<i class="material-icons">edit</i>
+							</a>
+							<a href=""ng-click="modalEliminarAntivirus(Antivirus.id_antivirus,Antivirus.antivirus)"data-toggle="modal" data-target="#myModalEliminarAntivirus">
+								<i class="material-icons">delete</i>
+							</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+			<a class="btn-floating btn-large waves-effect waves-light green" data-toggle="modal" data-target="#myModalCrearAntivirus" ng-click="limpiarFormAntivirus()">
+				<i class="large material-icons">add</i>
+			</a>
+		</div>
+
+		<!-- MODAL PARA CREAR Antivirus -->
+		<div id="myModalCrearAntivirus" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<form ng-submit="agregarAntivirus()">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Agregar Antivirus</h4>
+						</div>
+						<div class="modal-body">
+							<label for="">Nombre:</label>
+							<div class="input-field">
+								<input class="inputUsuario" type="text" ng-model="Antivirus.antivirus" class="validate" required="" aria-required="true">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div id="botoneraModalClasificacion">
+								<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn green">Agregar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- MODAL PARA EDITAR Antivirus -->
+		<div id="myModalEditarAntivirus" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<form ng-submit="editarAntivirus()">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Editar Antivirus</h4>
+						</div>
+						<div class="modal-body">
+							<label for="">Nombre:</label>
+							<div class="input-field">
+								<input class="inputUsuario" type="text" ng-model="AntivirusEditado.antivirus" class="validate" required="" aria-required="true">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div id="botoneraModalClasificacion">
+								<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn green">Editar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- MODAL PARA ELIMINAR Antivirus -->
+		<div id="myModalEliminarAntivirus" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<form ng-submit="eliminarAntivirus()">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Eliminar Antivirus</h4>
+						</div>
+						<div class="modal-body">
+							<div style="text-align:center;font-size:15pt;">
+								{{"¿Deseas eliminar '"+elementoEliminar+"'?"}}
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div id="botoneraModalClasificacion">
+								<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn green">Eliminar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>

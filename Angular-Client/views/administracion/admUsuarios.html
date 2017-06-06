@@ -1,0 +1,249 @@
+<div id="usuariosContent" ng-controller="UsuarioCtrl">
+	<div id="includeMenucontent">
+		<div ng-include="'views/administracion/menuAdministracion.html'" onload="includeCargado()"></div>
+	</div>
+	<div class="container">
+
+		<!-- BUSCADOR DE USUARIOS -->
+		<div class="input-field" style="max-width:30%;margin: 20px auto 20px auto;">
+			<i class="material-icons prefix">search</i>
+			<input placeholder="Buscar Usuario" type="text" ng-model="search" style="font-size: 13pt;">
+		</div>
+
+		<!-- TABLA PARA MOSTRAR A LOS USUARIOS -->
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<td class="tdCenter">
+						<a>N°</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'nombre'; sortReverse = !sortReverse">Nombre</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'empresa.empresa'; sortReverse = !sortReverse">Empresa</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'correo'; sortReverse = !sortReverse">Correo</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'perfil.perfil'; sortReverse = !sortReverse">Perfil</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'activo'; sortReverse = !sortReverse">Estado</a>
+					</td>
+					<td class="tdCenter">
+						<a>Editar</a>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="Usuario in usuarios | orderBy:sortType:sortReverse | filter:search">
+					<td class="tdCenter">{{$index + 1}}</td>
+					<td class="tdDatos">{{ Usuario.nombre }}</td>
+					<td class="tdDatos">{{ Usuario.empresa.empresa }}</td>
+					<td class="tdDatos">{{ Usuario.correo }}</td>
+					<td class="tdDatos">{{ Usuario.perfil.perfil }}</td>
+					<td class="tdCenter tdDatos">{{ (Usuario.activo) ? 'Activo' : 'Baja' }}</td>
+					<td>
+						<div class="card-action" style="text-align:center;">
+							<a href="" data-toggle="modal" data-target="#myModalEditarUsuario" ng-click="modalEditarUsuario(Usuario.id_usuario)">
+								<i class="material-icons">edit</i>
+							</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+			<a class="btn-floating btn-large waves-effect waves-light green"
+			data-toggle="modal" data-target="#myModalCrearUsuario" ng-click="limpiarFormUsuario()">
+			<i class="large material-icons">add</i>
+		</a>
+	</div>
+
+	<!-- MODAL PARA CREAR USUARIO -->
+	<div id="myModalCrearUsuario" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="width:60%">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<form ng-submit="agregarUsuario()">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Agregar Usuario</h4>
+					</div>
+					<div class="contDiv2">
+						<div>
+							<label for="">Nombre:</label>
+							<div class="input-field">
+								<input class="inputUsuario" type="text" ng-model="Usuario.nombre" class="validate" required="" aria-required="true">
+							</div>
+						</div>
+						<div>
+							<label for="">Correo:</label>
+							<div class="input-field">
+								<input class="inputUsuario" type="text" ng-model="Usuario.correo" class="validate" required="" aria-required="true">
+							</div>
+						</div>
+					</div>
+					<div class="contDiv2">
+						<div>
+							<label for="">Empresa:</label>
+							<div class="input-field">
+								<div class="input-field col s12 selectpickerResguardante">
+									<select id="selectEmpresa" data-size="6" class="selectpicker" data-dropup-auto="false" ng-model='Usuario.empresa_id'>
+										<option value="" selected disabled>Selecciona una empresa</option>
+										<option value="{{e.id_empresa}}" 
+										ng-repeat="e in empresas" 
+										on-finish-render="ngRepeatEmpresaFinished">
+										{{e.empresa}}</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div>
+							<label for="">Perfil:</label>
+							<div class="input-field">
+								<div class="input-field col s12 selectpickerResguardante">
+									<select id="selectPerfil" data-size="6" class="selectpicker" data-dropup-auto="false" ng-model='Usuario.perfil_id'>
+										<option value="" selected disabled>Selecciona un perfil</option>
+										<option value="{{p.id_perfil}}" 
+										ng-repeat="p in perfiles" 
+										on-finish-render="ngRepeatPerfilFinished">
+										{{p.perfil}}</option>
+									</select>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="contDiv3">
+						<div>
+							<label for="">Nombre de usuario:</label>
+							<div class="input-field">
+								<input class="inputUsuario" ng-model="Usuario.nombre_usuario" class="validate" required="" aria-required="true">
+							</div>
+						</div>
+						<div>
+							<label for="">Contraseña:</label>
+							<div class="input-field">
+								<input class="inputUsuario" type="password" ng-model="Usuario.password" class="validate" required="" aria-required="true">
+							</div>
+						</div>
+						<div>
+							<label for="">Confirmar contraseña:</label>
+							<div class="input-field">
+								<input class="inputUsuario" type="password" ng-model="Usuario.confirmar_password" class="validate" required="" aria-required="true">
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<div id="botoneraModalClasificacion">
+							<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn green">Agregar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+
+	<!-- MODAL PARA EDITAR USUARIO -->
+	<div id="myModalEditarUsuario" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="width:60%">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<form ng-submit="editarUsuario()">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Editar Usuario</h4>
+					</div>
+					<div class="contDiv2">
+						<div>
+							<label for="">Nombre:</label>
+							<div class="input-field">
+								<input class="inputUsuario" type="text" ng-model="UsuarioEditado.nombre" class="validate" required="" aria-required="true">
+							</div>
+						</div>
+						<div>
+							<label for="">Correo:</label>
+							<div class="input-field">
+								<input class="inputUsuario" type="email" ng-model="UsuarioEditado.correo" class="validate" required="" aria-required="true">
+							</div>
+						</div>
+					</div>
+					<div class="contDiv2">
+						<div>
+							<label for="">Empresa:</label>
+							<div class="input-field">
+								<div class="input-field col s12 selectpickerResguardante">
+									<select id="selectEmpresaEditar" class="selectpicker"
+									data-dropup-auto="false"
+									data-size="6" 
+									ng-model="UsuarioEditado.empresa_id" 
+									ng-options="e.id_empresa as e.empresa for e in empresas">
+									</select>
+								</div>
+							</div>
+						</div>
+						<div>
+							<label for="">Perfil:</label>
+							<div class="input-field">
+								<div class="input-field col s12 selectpickerResguardante">
+									<select id="selectPerfilEditar" class="selectpicker"
+									data-dropup-auto="false"
+									data-size="6"
+									ng-model='UsuarioEditado.perfil_id'
+									ng-options="p.id_perfil as p.perfil for p in perfiles">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="contDiv2">
+					<div>
+						<label for="">Nombre de usuario:</label>
+						<div class="input-field">
+							<input class="inputUsuario" ng-model="UsuarioEditado.nombre_usuario" class="validate" required="" aria-required="true">
+						</div>
+					</div>
+					<div>
+							<label for="">Estado:</label>
+							<div class="input-field">
+								<div class="input-field col s12 selectpickerResguardante">
+									<select id="selectEstadoEditar" class="selectpicker"
+									data-dropup-auto="false"
+									ng-model='UsuarioEditado.activo'
+									ng-options="e.value as e.name for e in estados">
+								</select>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="contDiv2">
+					<div>
+						<input type="checkbox" value=""	ng-model='ckbCambiarContrasena'>
+						<label for="">Cambiar contraseña:</label>
+						<div class="input-field">
+							<input class="inputUsuario" type="password" ng-model="UsuarioEditado.password" 
+							class="validate" required="{{ckbCambiarContrasena}}" aria-required="{{ckbCambiarContrasena}}" ng-disabled="!ckbCambiarContrasena">
+						</div>
+					</div>
+					<div>
+						<label for="">Confirmar contraseña:</label>
+						<div class="input-field">
+							<input class="inputUsuario" type="password" ng-model="UsuarioEditado.confirmar_password" class="validate" required="{{ckbCambiarContrasena}}" aria-required="{{ckbCambiarContrasena}}" ng-disabled="!ckbCambiarContrasena">
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div id="botoneraModalClasificacion">
+						<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn green">Editar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+</div>

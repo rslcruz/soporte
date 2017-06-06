@@ -1,0 +1,27 @@
+.contDiv2,.contDiv3,.contDiv4,.contDiv5{
+	display:flex;
+	display:webkit-flex;
+	-webkit-justify-content: space-between; /* Safari 6.1+ */
+    justify-content: space-between;
+}
+
+.contDiv2 > div{
+	width: 48%;
+}
+
+.contDiv3 > div{
+	width: 32%;
+}
+
+.contDiv4 > div{
+	width: 23%;
+}
+
+.contDiv5 > div{
+	width: 19%;
+}
+
+.modalCont{
+	margin-top: 10px;
+	margin-bottom: 10px;
+}

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html ng-app="universidadApp" ng-controller="mainCtrl">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+       <title>SSIIT Sistema para el Soporte a la Infraestructura de Informática y Telecomunicaciones</title>
+       <link rel="shortcut icon" href="../assets/images/logo.ico">
+
+
+        <!-- Incluir Bootstrap -->
+        <link rel="stylesheet" href="../assets/css/bootstrap.min.css"> 
+        <style type="text/css">
+.oscuro12_left_normal
+  {
+    font-size:12px; 
+    font-family:Arial; 
+    color:#414141;
+    text-decoration:none; 
+  }
+.oscuro12_left_bold
+  {
+    font-size:12px; 
+    font-family:Arial; 
+    color:#414141;
+    text-decoration:none;
+    font-weight:bold; 
+  }
+.oscuro13_left_bold
+  {
+    font-size:13px; 
+    font-family:Arial; 
+    color:#414141;
+    text-decoration:none;
+    font-weight:bold;
+    text-align:left;
+  }
+.oscuro15_center_bold
+  {
+    font-size:15px; 
+    font-family:Arial; 
+    color:#414141;
+    text-decoration:none;
+    font-weight:bold;
+  }
+.contorno_1px 
+{
+   border:#000000;
+   border-style:solid; 
+   border-top-width:1px; 
+   border-right-width:1px; 
+   border-bottom-width:1px; 
+   border-left-width:1px; 
+}
+.linea_abajo_1px
+{
+   border:#000000;
+   border-style:solid; 
+   border-top-width:0px; 
+   border-right-width:0px; 
+   border-bottom-width:1px; 
+   border-left-width:0px; 
+}
+.linea_abajo_2px
+{
+   border:#000000;
+   border-style:solid; 
+   border-top-width:0px; 
+   border-right-width:0px; 
+   border-bottom-width:2px; 
+   border-left-width:0px; 
+}
+.oscuro18_center_bold
+  {
+    font-size:20px; 
+    font-family:Arial; 
+    color:#000;
+    text-decoration:none; 
+    text-align:center;
+    font-weight:bold;
+  }
+.oscuro18_center_normal
+  {
+    font-size:20px; 
+    font-family:Arial; 
+    color:#000;
+    text-decoration:none;                  
+    text-align:center;
+  }
+</style>
+<!------------------------------------X----------------------------------- -->  
+    </head>    
+    <body>
+              <table width="1024" align="center" cellpadding="0" cellspacing="0" class="linea_abajo_2px">
+  <tr>
+    <td width="140" rowspan="3" align="left"><img src="../assets/images/imta_report.png" width="100" height="70" /></td>
+    <td width="742" align="center" class="oscuro18_center_normal" valign="top">INSTITUTO MEXICANO DE TECNOLOG&Iacute;A DEL AGUA </td>
+    <td width="140" rowspan="3" align="center"><img src="../assets/images/semarnart_report.png" width="145" height="70" /></td>
+  </tr>
+  <tr>
+    <td align="center" class="oscuro15_center_bold" valign="middle">SUBDIRECCI&Oacute;N DE INFORM&Aacute;TICA Y TELECOMUNICACIONES </td>
+  </tr>
+  <tr>
+    <td align="center" class="oscuro15_center_bold" valign="middle">SOLICITUD DE SERVICIO DE TIC </td>
+  </tr>
+</table>
+<table width="1024" align="center" style="height:5px;">
+  <tr>
+    <td></td>
+  </tr>
+</table>
+<table width="1024" cellpadding="0" cellspacing="2" align="center" style="height:25px;">
+  <tr>
+    <td width="120" class="oscuro13_left_bold">N° DE SOLICITUD:</td>
+    <td width="516" align="left"><table width="120" cellpadding="0" cellspacing="0" class="contorno_1px" style="height:20px;" align="left">
+      <tr>
+        <td width="100" class="oscuro18_center_bold" align="center">5571</td>
+      </tr>
+    </table></td>
+    <td width="176" class="oscuro12_left_bold">Fecha y hora de la solicitud:</td>
+    <td width="200" align="right"><table width="100%" cellpadding="0" cellspacing="0" class="contorno_1px" style="height:20px;" align="right">
+      <tr>
+        <td class="oscuro12_left_normal" align="center">03-Abr-2017 a las 09:05:55</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+<table width="1024" align="center" style="height:5px;">
+  <tr>
+    <td></td>
+  </tr>
+</table>
+
+<table width="1024" cellpadding="0" cellspacing="0" align="center" style="height:20px;" class="linea_negra2">
+  <tr>
+    <td width="747" class="oscuro13_left_bold" bgcolor="#E8E8E8">DATOS DEL RESGUARDANTE</td>
+  </tr>
+</table>
+<table width="1024" cellpadding="0" cellspacing="0" align="center">
+  <tr>
+    <td width="124" class="oscuro12_left_bold">Resguardante:</td>
+    <td width="619" class="linea_abajo_1px"><span class='oscuro12_left_bold'>Indira Franco  Salazar</span> &nbsp;</td>
+    <td width="79" align="center" class="oscuro12_left_normal">Ext.:</td>
+    <td width="200" class="linea_abajo_1px" align="center"><span class='oscuro12_left_normal'>314</span></td>
+  </tr>
+</table>
+<table width="1024" cellpadding="0" cellspacing="0" align="center">
+  <tr>
+    <td width="128" class="oscuro12_left_normal">Coordinaci&oacute;n / Subcoordinaci&oacute;n:</td>
+    <td width="588" class="linea_abajo_1px"><span class='oscuro12_left_normal'>Coordinación de Comunicación, Participación e Información / Subcoordinación de Difusión y Divulgación</span> &nbsp;</td>
+  </tr>
+</table>
+<table width="1024" cellpadding="0" cellspacing="2" align="center">
+  <tr>
+    <td width="617" align="left" valign="bottom" class="oscuro12_left_normal">En caso de que el nombre del resguardante no sea el solicitante del servicio, favor de describir con atenci&oacute;n a:</td>
+    <td width="399" align="left" valign="bottom" class="linea_abajo_1px"><span class='oscuro12_left_normal'></span> &nbsp;</td>
+  </tr>
+</table>
+<table width="1024" cellpadding="0" cellspacing="0" align="center" bgcolor="#E8E8E8">
+  <tr>
+    <td class="oscuro13_left_bold" bgcolor="#E8E8E8">Datos del equipo de c&oacute;mputo / Telecomunicaciones / Telefon&iacute;a </td>
+  </tr>
+</table>
+<table width="1024" cellpadding="0" cellspacing="2" align="center">
+  <tr>
+    <td width="344" class="oscuro12_left_bold" align="right">N&uacute;m. de inventario / Extensi&oacute;n / N&uacute;m. Directo: </td>
+    <td width="130"><table width="100%" cellpadding="0" cellspacing="0" class="contorno_1px" style="height:20px;">
+      <tr>
+        <td class="oscuro15_center_bold" align="center">35024</td>
+      </tr>
+    </table></td>
+    <td width="138" class="oscuro12_left_normal" align="right">Descripci&oacute;n del equipo: </td>
+    <td width="400" align="right"><table width="100%" cellpadding="0" cellspacing="0" class="contorno_1px" style="height:20px;" align="right">
+      <tr>
+        <td class="oscuro12_left_normal" align="left">COMPUTADORA PORTATIL (FACT.FM4603)</td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+
+<table width="1024" cellpadding="0" cellspacing="2" align="center">
+  <tr style="line-height:25px">
+    <td  width="120" class="oscuro12_left_normal" align="right">Memoria:</td>
+    <td width="125"><table width="100%" cellpadding="0" cellspacing="0" class="contorno_1px" style="height:20px;">
+      <tr>
+        <td class="oscuro12_left_normal" style="text-align:center;"></td>
+      </tr>
+    </table></td>
+    <td width="100" class="oscuro12_left_normal" align="right">Disco duro:</td>
+    <td width="130"><table width="100%" cellpadding="0" cellspacing="0" class="contorno_1px" style="height:20px;">
+      <tr>
+        <td class="oscuro12_left_normal" style="text-align:center;"></td>
+      </tr>
+    </table></td>
+    <td width="138" class="oscuro12_left_normal" align="right">Sistema operativo: </td>
+    <td width="400" align="right"><table width="100%" cellpadding="0" cellspacing="0" class="contorno_1px" style="height:20px;" align="right">
+      <tr>
+        <td class="oscuro12_left_normal"></td>
+      </tr>
+    </table></td>
+  </tr>
+</table>
+
+<table width="1024" cellpadding="0" cellspacing="0" align="center" style="height:20px;" class="linea_negra2">
+  <tr>
+    <td width="747" class="oscuro13_left_bold" bgcolor="#E8E8E8">DATOS DE LA SOLICITUD DE SERVICIO</td>
+  </tr>
+</table>
+<table width="1024" cellpadding="0" cellspacing="2" align="center">
+  <tr>
+    <td width="120" class="oscuro12_left_normal">Servicio solicitado: </td>
+    <td width="354"><table width="100%" cellpadding="0" cellspacing="0" class="contorno_1px" style="height:40px;" align="right">
+      <tr>
+        <td align="left" class="oscuro12_left_normal">Otro, favor de describirlo en las observaciones</td>
+      </tr>
+    </table></td>
+    <td width="138" rowspan="2" align="right" valign="middle" class="oscuro12_left_normal">Breve descripci&oacute;n del servicio solicitado:</td>
+    <td width="400" rowspan="2" valign="top"><table width="100%" cellpadding="0" cellspacing="0" class="contorno_1px" style="height:60px;">
+      <tr>
+        <td valign="top" class="oscuro12_left_normal" style="text-align:justify">Actualización de sistema macintosh.</td>
+      </tr>
+    </table></td>
+  </tr></table>
+<a>&nbsp;</a>
+<table  width="1024" cellpadding="1000" cellspacing="2" align="center">
+        <tr>
+          <td width="120" align="left" valign="middle" class="oscuro12_left_bold">Diagn&oacute;stico / Soluci&oacute;n:</td>
+          <td width="896" align="right"><table width="100%" cellpadding="0" cellspacing="0" class="contorno_1px" style="height:104px;" align="right">
+            <tr>
+              <td valign="top" class="oscuro12_left_normal" style="text-align:justify">En proceso de atencion. se sube el equipo a soporte para su revision              </td>
+            </tr>
+          </table></td>
+        </tr>
+</table>
+<table width="1024" align="center" class="linea_abajo_2px" style="height:5px;">
+  <tr>
+    <td></td>
+  </tr>
+</table>
+<table width="1024" cellpadding="0" cellspacing="0" align="center">
+  <tr>
+    <td width="511" style="border-right: 2px solid #000000;" align="left" valign="top"><table class="oscuro13_left_bold" style="height:20px;" cellpadding="0" cellspacing="2" width="510">
+      <tr>
+        <td bgcolor="#E8E8E8">Datos para ser llenados por la Mesa de Servicio </td>
+      </tr>
+    </table>
+      <table width="510" cellpadding="0" cellspacing="2">
+        <tr>
+          <td width="174" class="oscuro12_left_normal">Clasificaci&oacute;n del servicio: </td>
+          <td width="324" align="right"><table width="100%" cellpadding="0" cellspacing="0" class="contorno_1px" style="height:20px;" align="right">
+            <tr>
+              <td class="oscuro12_left_normal" align='left'></td>
+            </tr>
+          </table></td>
+        </tr>
+      </table>
+      
+      <table width="510" cellpadding="0" cellspacing="2">
+        <tr>
+          <td width="120" align="left" class="oscuro12_left_normal">T&eacute;cnico que atiende:</td>
+          <td width="382" align="right" style="height:21px;"><table width="100%" cellpadding="0" cellspacing="0" class="contorno_1px" style="height:20px;" align="right">
+              <tr>
+                <td class="oscuro12_left_normal" align="left">Oscar Martínez Brito</td>
+              </tr>
+          </table></td>
+        </tr>
+      </table>
+      <table width="510" cellpadding="0" cellspacing="2">
+        <tr style="line-height:70px">
+          <td width="120" align="left" valign="middle" class="oscuro12_left_normal">Observaciones:</td>
+          <td width="382" align="right"><table width="100%" cellpadding="0" cellspacing="0" class="contorno_1px" style="height:60px;" align="right">
+              <tr>
+                <td class="oscuro12_left_normal" valign="top" style="text-align:justify"> <table width='100%' cellpadding='0' cellspacing='0'>
+                  <tr style='height:18px;'>
+                    <td style='border-bottom:1px solid #DFDFDF;'></td>
+                  </tr>
+                  <tr style='height:18px;'>
+                    <td style='border-bottom:1px solid #DFDFDF;'></td>
+                  </tr>
+                  <tr style='height:18px;'>
+                    <td></td>
+                  </tr>
+                </table></td>
+              </tr>
+          </table></td>
+        </tr>
+      </table>
+      <table width="510" cellpadding="0" cellspacing="0" class="oscuro12_left_normal" style="height:20px;">
+        <tr>
+          <td width="418" align="left">REFACCIONES </td>
+          <td width="90" align="center">REEMPLAZO</td>
+        </tr>
+      </table>
+      <table width="510" cellpadding="0" cellspacing="0" class="oscuro12_left_normal">
+        <tr>
+          <td align="left">
+      <table width="508" cellpadding="0" cellspacing="0" align="left">
+        <tr>
+          <td width="80" class="oscuro12_left_normal" style="border-right: 1px solid #000000; border-left:1px solid #000000; border-top:1px solid #000000;" align="center">CANTIDAD </td>
+          <td width="350" class="oscuro12_left_normal" style="border-right: 1px solid #000000; border-top:1px solid #000000;" align="center">DESCRIPCI&Oacute;N</td>
+          <td width="76" class="oscuro12_left_normal" style="border-right: 1px solid #000000; border-top:1px solid #000000;" align="center"><table width='100%' cellpadding='0' cellspacing='0' align='center'>
+  <tr>
+    <td width='40%' align='center'>SI</td>
+  <td width='20%' align='center'>/</td>
+    <td width='40%' align='center'>NO</td>
+  </tr>
+</table>
+</td>
+</tr>
+     <tr>
+          <td class='oscuro12_left_normal' style='border-right: 1px solid #000000; border-left:1px solid #000000; border-top:1px solid #000000;' >&nbsp;</td>
+          <td class='oscuro12_left_normal' style='border-right: 1px solid #000000; border-top:1px solid #000000;'>&nbsp;</td>
+          <td class='oscuro12_left_normal' style='border-right: 1px solid #000000; border-top:1px solid #000000;' align='center'>
+      <table width='100%' cellpadding='0' cellspacing='0' align='center'>
+            <tr>
+              <td width='40%' align='center'><input name='radiobutton' type='radio' value='radiobutton'  disabled="disabled"/></td>
+              <td width='20%' align='center'>/</td>
+              <td width='40%' align='center'><input name='radiobutton' type='radio' value='radiobutton'  disabled="disabled"/></td>
+            </tr>
+          </table></td>
+        </tr>
+    <tr>
+          <td class='oscuro12_left_normal' style='border-right: 1px solid #000000; border-left:1px solid #000000; border-top:1px solid #000000; border-bottom:1px solid #000000;' >&nbsp;</td>
+          <td class='oscuro12_left_normal' style='border-right: 1px solid #000000; border-top:1px solid #000000; border-bottom:1px solid #000000;'>&nbsp;</td>
+          <td class='oscuro12_left_normal' style='border-right: 1px solid #000000; border-top:1px solid #000000; border-bottom:1px solid #000000;' align='center'>
+      <table width='100%' cellpadding='0' cellspacing='0' align='center'>
+            <tr>
+              <td width='40%' align='center'><input name='radiobutton' type='radio' value='radiobutton'  disabled="disabled"/></td>
+              <td width='20%' align='center'>/</td>
+              <td width='40%' align='center'><input name='radiobutton' type='radio' value='radiobutton'  disabled="disabled"/>
+              </td>
+            </tr>
+          </table>
+      </td>
+        </tr>
+       </table>
+      </td></tr></table>
+<table width='510' cellpadding='0' cellspacing='0' class='oscuro12_left_normal' style='height:20px;'>
+        <tr>
+          <td width='45%'>Destino de las refacciones sustituidas:</td><td class='linea_abajo_1px'> &nbsp;</td>
+          </tr>
+      </table>    </td>
+    <td width="511" align="left" valign="top"><table class="oscuro13_left_bold" style="height:20px;" cellpadding="0" cellspacing="2" width="510">
+        <tr>
+          <td bgcolor="#E8E8E8">Datos para ser llenados por el Usuario </td>
+        </tr>
+      </table>
+      <table width="510"  style="height:20px;" cellpadding="0" cellspacing="2">
+        <tr>
+          <td width="277" class="oscuro12_left_bold">Fecha y hora en la que se present&oacute; el t&eacute;cnico: </td>
+          <td width="225" align="right"><table width="100%" align="right" style="height:20px;" cellpadding="0" cellspacing="0">
+            <tr>
+              <td width="60%" class="oscuro12_left_normal" style=" border-left:1px solid #000000; border-top:1px solid #000000; border-bottom:1px solid #000000; visibility:visible;" align="center"><span class='oscuro12_left_normal'>03-Abr-2017</span></td>
+              <td width="40%" class="oscuro12_left_normal" style="border-right: 1px solid #000000; border-left:1px solid #000000; border-top:1px solid #000000; border-bottom:1px solid #000000; visibility:visible;" align="center"> <span class='oscuro12_left_normal'>11:45</span></td>
+            </tr>
+          </table></td>
+        </tr>
+      </table>
+      <table width="510"  style="height:20px;" cellpadding="0" cellspacing="2">
+        <tr style="line-height:30px">
+          <td width="277" class="oscuro12_left_normal">Fecha y hora de la conclusi&oacute;n del servicio: </td>
+          <td width="225" align="right"><table width="100%" align="right" style="height:20px;" cellpadding="0" cellspacing="0">
+              <tr>
+                <td width="60%" class="oscuro12_left_normal" style=" border-left:1px solid #000000; border-top:1px solid #000000; border-bottom:1px solid #000000; visibility:visible;" align="center"> </td>
+                <td width="40%" class="oscuro12_left_normal" style="border-right: 1px solid #000000; border-left:1px solid #000000; border-top:1px solid #000000; border-bottom:1px solid #000000; visibility:visible;" align="center"><span class='oscuro12_left_normal'></span></td>
+              </tr>
+          </table></td>
+        </tr>
+      </table>
+      <table width="510">
+        <tr>
+          <td class="oscuro12_left_bold">Evaluaci&oacute;n del servicio: </td>
+        </tr>
+      </table>
+      <table width="510">
+        <tr>
+          <td width="250" class="oscuro12_left_normal" align="center">Satisfacci&oacute;n con la oportunidad del servicio </td>
+          <td width="248" class="oscuro12_left_normal" align="right">Satisfacci&oacute;n con la soluci&oacute;n implementada </td>
+        </tr>
+      </table>
+      <table width="500" cellpadding="1" cellspacing="1" align="center">
+        <tr><td width="52" class="oscuro12_left_normal">&nbsp;</td>
+          <td width="90" class="oscuro12_left_normal"  align="left">Muy bueno </td>
+          <td width="36" class="oscuro12_left_normal" align="center">
+          <input name="oportunidad" type="radio" value="oportunidad" disabled='false'/>          </td>
+          <td width="139" class="oscuro12_left_normal" >&nbsp;</td>
+          <td width="90" class="oscuro12_left_normal" >Muy buena </td>
+          <td width="72" class="oscuro12_left_normal"  align="left"><input name="satisfaccion" type="radio" value="satisfaccion" disabled='false'/>          </td>
+        </tr>
+        <tr><td class="oscuro12_left_normal">&nbsp;</td>
+          <td class="oscuro12_left_normal" align="left">Bueno</td>
+          <td class="oscuro12_left_normal" align="center"><input name="oportunidad" type="radio" value="oportunidad"  disabled='false'/></td>
+          <td class="oscuro12_left_normal">&nbsp;</td>
+          <td class="oscuro12_left_normal" >Buena</td>
+          <td class="oscuro12_left_normal" ><input name="satisfaccion" type="radio" value="satisfaccion" disabled='false'/></td>
+        </tr>
+        <tr><td class="oscuro12_left_normal">&nbsp;</td>
+          <td class="oscuro12_left_normal" align="left">Regular</td>
+          <td class="oscuro12_left_normal" align="center"><input name="oportunidad" type="radio" value="oportunidad"  disabled='false'/></td>
+          <td class="oscuro12_left_normal" >&nbsp;</td>
+          <td class="oscuro12_left_normal" >Regular</td>
+          <td class="oscuro12_left_normal" ><input name="satisfaccion" type="radio" value="satisfaccion" disabled='false'/></td>
+        </tr>
+        <tr><td class="oscuro12_left_normal">&nbsp;</td>
+          <td class="oscuro12_left_normal" align="left">Malo</td>
+          <td class="oscuro12_left_normal" align="center"><input name="oportunidad" type="radio" value="oportunidad" disabled='false'/></td>
+          <td class="oscuro12_left_normal" >&nbsp;</td>
+          <td class="oscuro12_left_normal" >Mala</td>
+          <td class="oscuro12_left_normal" ><input name="satisfaccion" type="radio" value="satisfaccion"  disabled='false'/></td>
+        </tr>
+        <tr><td class="oscuro12_left_normal">&nbsp;</td>
+          <td class="oscuro12_left_normal" align="left">Muy malo </td>
+          <td class="oscuro12_left_normal" align="center"><input name="oportunidad" type="radio" value="oportunidad" disabled='false'/></td>
+          <td class="oscuro12_left_normal" >&nbsp;</td>
+          <td class="oscuro12_left_normal">Muy mala </td>
+          <td class="oscuro12_left_normal" ><input name="satisfaccion" type="radio" value="satisfaccion" disabled='false'/></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table><table width="1024" cellpadding="0" cellspacing="0" align="center">
+  <tr>
+    <td width="511" style="border-right: 2px solid #000000;" align="left" valign="bottom"><table width="500" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="center" style="height:70px;" valign="top" class="oscuro12_left_bold"><br />
+          FIRMA DEL T&Eacute;CNICO ESPECIALIZADO </td>
+      </tr>
+      <tr>
+        <td><table width="70%" align="center" class="linea_abajo_1px" style="height:2px;">
+  <tr>
+    <td style="empty-cells:show;"></td>
+  </tr>
+</table>
+        <table width="70%" cellpadding="0" cellspacing="0" style="height:20px;" align="center">
+          <tr>
+            <td class="oscuro12_left_normal" style="text-align:center;">Oscar Martínez Brito</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr></tr>
+    </table></td>
+    <td width="511" align="left" valign="bottom"><table width="500" align="center" cellpadding="0" cellspacing="0">
+      <tr>
+        <td align="center" style="height:70px;" valign="top" class="oscuro12_left_bold"><br />
+          FIRMA DEL USUARIO </td>
+      </tr>
+      <tr>
+        <td><table width="70%" align="center" class="linea_abajo_1px" style="height:2px;">
+  <tr>
+    <td style="empty-cells:show;"></td>
+  </tr>
+</table><table width="70%" cellpadding="0" cellspacing="0" style="height:20px;" align="center">
+          <tr>
+            <td class="oscuro12_left_normal" style="text-align:center;">Indira Franco Salazar</td>
+          </tr>
+        </table></td>
+      </tr>
+      <tr></tr>
+    </table></td>
+  </tr></table>
+
+   
+
+
+
+    </body>
+</html>

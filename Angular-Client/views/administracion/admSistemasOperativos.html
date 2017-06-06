@@ -1,0 +1,272 @@
+<div id="administrarSistemasOperativosContent" ng-controller="AdministrarSOCtrl">
+	<div id="includeMenucontent">
+		<div ng-include="'views/administracion/menuAdministracion.html'" onload="includeCargado()"></div>
+	</div>
+	<div ng-switch on="vistaAdministrarSO">
+		<div id="marcaContent" ng-switch-when="marca">
+			<h4 class="tituloInventario">Marcas de Sistemas Operativos:</h4>
+			<table class="table table-bordered table-striped tableAdmCatEquipos">
+				<thead>
+					<tr>
+						<td class="tdCenter"><a>N°</a></td>
+						<td class="tdCenter">
+							<a href="" ng-click="sortType = 'marca_sistema_operativo'; sortReverse = !sortReverse">
+								Marca 
+							</a>
+						</td>
+						<td class="tdCenter"><a>Ver S.O.</a></td>
+						<td class="tdCenter"><a>Acciones</a></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="Marca in marcasSO | orderBy:sortType:sortReverse | filter:search">
+						<td class="tdCenter">{{$index + 1}}</td>
+						<td class="tdDatos">{{ Marca.marca_sistema_operativo }}</td>
+						<td>
+							<div class="card-action" style="text-align: center;">
+								<a href="" ng-click="verSO(Marca.id_marca_sistema_operativo,Marca.marca_sistema_operativo)"><i class="material-icons">search</i>
+								</a>
+							</div>
+						</td>
+						<td>
+							<div class="card-action" style="text-align: center;">
+								<a href=""
+								ng-click="editarTemplate(Marca.id_marca_sistema_operativo,Marca.marca_sistema_operativo,'marca')"
+								data-toggle='modal' data-target="#myModalEditar">
+								<i class="material-icons">edit</i></a>
+								<a href="" 
+								ng-click="eliminarTemplate(Marca.id_marca_sistema_operativo,Marca.marca_sistema_operativo,'marca')" 
+								data-toggle="modal" data-target="#myModalEliminar">
+								<i class="material-icons">delete</i></a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+				<a class="btn-floating btn-large waves-effect waves-light green" data-toggle="modal" data-target="#myModal" ng-click="NuevaMarca.marca_sistema_operativo=''">
+					<i class="large material-icons">add</i>
+				</a>
+			</div>
+			<div id="myModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<form ng-submit="agregarMarca()">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Agregar Marca</h4>
+							</div>
+							<div class="modal-body">
+								<label for="">Marca:</label>
+								<input class="inputUsuario" 
+								ng-model='NuevaMarca.marca_sistema_operativo' 
+								class="validate" required="" aria-required="true" >
+							</div>
+							<div class="modal-footer">
+								<div id="botoneraModalClasificacion">
+									<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+									<button type="submit" class="btn green">Agregar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="soContent" ng-switch-when="so">
+			<h4 class="tituloInventario">{{tituloMarca + " - Sistemas Operativos:"}}</h4>
+			<table class="table table-bordered table-striped tableAdmCatEquipos">
+				<a href="" ng-click="cambiarvista()">Ver marcas</a>
+				<thead>
+					<tr>
+						<td class="tdCenter"><a>N°</a></td>
+						<td class="tdCenter">
+							<a href="" ng-click="sortType = 'sistema_operativo'; sortReverse = !sortReverse">
+								Sistema operativo 
+							</a>
+						</td>
+						<td class="tdCenter"><a>Ver versiones</a></td>
+						<td class="tdCenter"><a>Acciones</a></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="so in sistemasOperativos | orderBy:sortType:sortReverse | filter:search">
+						<td class="tdCenter">{{$index + 1}}</td>
+						<td class="tdDatos">{{ so.sistema_operativo }}</td>
+						<td>
+							<div class="card-action" style="text-align: center;">
+								<a href="" ng-click="verVersion(so.id_sistema_operativo,so.sistema_operativo)">
+									<i class="material-icons">search</i>
+								</a>
+							</div>
+						</td>
+						<td>
+							<div class="card-action" style="text-align: center;">
+								<a href=""
+								ng-click="editarTemplate(so.id_sistema_operativo,so.sistema_operativo,'so')"
+								data-toggle='modal' data-target="#myModalEditar">
+								<i class="material-icons">edit</i></a>
+								<a href="" 
+								ng-click="eliminarTemplate(so.id_sistema_operativo,so.sistema_operativo,'so')" 
+								data-toggle="modal" data-target="#myModalEliminar">
+								<i class="material-icons">delete</i></a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+				<a class="btn-floating btn-large waves-effect waves-light green" data-toggle="modal" data-target="#myModal2" ng-click="NuevoSO.sistema_operativo=''">
+					<i class="large material-icons">add</i>
+				</a>
+			</div>
+			<div id="myModal2" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<form ng-submit="agregarSO()">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Agregar Sistema operativo</h4>
+							</div>
+							<div class="modal-body">
+								<label for="">Sistema Operativo:</label>
+								<input class="inputUsuario" 
+								ng-model='NuevoSO.sistema_operativo' 
+								class="validate" required="" aria-required="true" >
+							</div>
+							<div class="modal-footer">
+								<div id="botoneraModalClasificacion">
+									<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+									<button type="submit" class="btn green">Agregar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="versionContent" ng-switch-when="versiones">
+			<h4 class="tituloInventario">
+				{{tituloMarca +" - "+ tituloso + " - Versiones:"}}
+			</h4>
+			<table class="table table-bordered table-striped tableAdmCatEquipos">
+				<a href="" ng-click="cambiarvista2()">Ver Sistemas Operativos</a>
+				<thead>
+					<tr>
+						<td class="tdCenter"><a>N°</a></td>
+						<td class="tdCenter">
+							<a href="" ng-click="sortType = 'version_sistema_operativo'; sortReverse = !sortReverse">
+								Versión 
+							</a>
+						</td>
+						<td class="tdCenter"><a>Acciones</a></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="version in versionesSO | orderBy:sortType:sortReverse | filter:search">
+						<td class="tdCenter">{{$index + 1}}</td>
+						<td class="tdDatos">{{ version.version_sistema_operativo }}</td>
+						<td>
+							<div class="card-action" style="text-align: center;">
+								<a href=""
+								ng-click="editarTemplate(version.id_version_sistema_operativo,version.version_sistema_operativo,'version')"
+								data-toggle='modal' data-target="#myModalEditar">
+								<i class="material-icons">edit</i>
+							</a>
+							<a href="" 
+							ng-click="eliminarTemplate(version.id_version_sistema_operativo,version.version_sistema_operativo,'version')" 
+							data-toggle="modal" data-target="#myModalEliminar">
+							<i class="material-icons">delete</i>
+						</a>
+					</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+		<a class="btn-floating btn-large waves-effect waves-light green" data-toggle="modal" data-target="#myModal3" ng-click="NuevaVersion.version_sistema_operativo=''">
+			<i class="large material-icons">add</i>
+		</a>
+	</div>
+	<div id="myModal3" class="modal fade" role="dialog">
+		<div class="modal-dialog">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<form ng-submit="agregarVersion()">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">&times;</button>
+						<h4 class="modal-title">Agregar Versión de Sistema Operativo</h4>
+					</div>
+					<div class="modal-body">
+						<label for="">Versión:</label>
+						<input class="inputUsuario" 
+						ng-model='NuevaVersion.version_sistema_operativo' 
+						class="validate" required="" aria-required="true" >
+					</div>
+					<div class="modal-footer">
+						<div id="botoneraModalClasificacion">
+							<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+							<button type="submit" class="btn green">Agregar</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div id="myModalEliminar" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<form ng-submit="eliminar()">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">{{"Eliminar "+ catalogo }}</h4>
+				</div>
+				<div class="modal-body">
+					<div style="text-align:center;font-size:15pt;">
+						{{"¿Deseas eliminar '"+elementoEliminar+"'?"}}
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div id="botoneraModalClasificacion">
+						<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn green">Eliminar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="myModalEditar" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<form ng-submit="editar()">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">{{"Modificar "+ catalogo }}</h4>
+				</div>
+				<div class="modal-body">
+					<input class="inputUsuario"ng-model='elementoEditar'
+					class="validate" required="" aria-required="true" >
+				</div>
+				<div class="modal-footer">
+					<div id="botoneraModalClasificacion">
+						<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn green">Editar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+<script>
+$( document ).ready(function() {
+
+});
+</script>

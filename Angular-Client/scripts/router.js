@@ -29,7 +29,7 @@ angular.module('Client',['ngResource','ngRoute','satellizer','ngStorage','angula
 
 		.when('/login', {
 			templateUrl: 'views/login.html', 
-			controller: 'LoginCtrl'
+			controller: 'LoginCtrl' 
 		})
 		.otherwise({
 			redirectTo: '/inicio'
@@ -58,27 +58,27 @@ angular.module('Client',['ngResource','ngRoute','satellizer','ngStorage','angula
 		};
 
 		$scope.isAdministrator = function(){
-			return $rootScope.UsuarioLogueado.perfil.id_perfil === 1;
+			return $rootScope.UsuarioLogueado.usuarioperfil.id_usuario_perfil === 1;
 		};
 
 		$scope.isMesaAyuda = function(){
-			return $rootScope.UsuarioLogueado.perfil.id_perfil === 2;
+			return $rootScope.UsuarioLogueado.usuarioperfil.id_usuario_perfil === 2;
 		};
 
 		$scope.isCTecnico = function(){
-			return $rootScope.UsuarioLogueado.perfil.id_perfil === 3;
+			return $rootScope.UsuarioLogueado.usuarioperfil.id_usuario_perfil === 3;
 		};
 
 		$scope.isCRed = function(){
-			return $rootScope.UsuarioLogueado.perfil.id_perfil === 4;
+			return $rootScope.UsuarioLogueado.usuarioperfil.id_usuario_perfil === 4;
 		};
 
 		$scope.isCTelefonia = function(){
-			return $rootScope.UsuarioLogueado.perfil.id_perfil === 5;
+			return $rootScope.UsuarioLogueado.usuarioperfil.id_usuario_perfil === 5;
 		};
 
 		$scope.isTecnico = function(){
-			return $rootScope.UsuarioLogueado.perfil.id_perfil === 6;
+			return $rootScope.UsuarioLogueado.usuarioperfil.id_usuario_perfil === 6;
 		};
 
 

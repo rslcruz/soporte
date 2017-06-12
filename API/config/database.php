@@ -68,7 +68,7 @@ return [
         'mysql' => [
             'driver'    => 'mysql',
             'host'      => env('DB_HOST', 'aplicaciones.imta.mx'),
-            'database'  => env('DB_DATABASE', 'SSIIT_FINAL'),
+            'database'  => env('DB_DATABASE', 'SSIIT_2017'),
             'username'  => env('DB_USERNAME', 'soporte'),
             'password'  => env('DB_PASSWORD', '1uYmJIB9'),
             'charset'   => 'utf8',

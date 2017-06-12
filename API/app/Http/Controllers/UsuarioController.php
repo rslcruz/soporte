@@ -32,8 +32,8 @@ class UsuarioController extends Controller
     {
         $usuarios = Usuario::orderBy('activo')->orderBy('nombre')->get();
         foreach ($usuarios as $usuario){
-             $usuario->perfil;
-             $usuario->empresa;
+             $usuario->usuarioperfil;
+             $usuario->usuarioempresa;
         }
         return response()->json($usuarios->toArray());
     }
@@ -76,7 +76,8 @@ class UsuarioController extends Controller
      */
     public function show($id_usuario)
     {
-        $this->usuario->perfil;
+        $this->usuario->usuarioempresa;
+        $this->usuario->usuarioperfil;
         return response()->json($this->usuario);
     }
 

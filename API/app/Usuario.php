@@ -4,7 +4,7 @@ namespace API;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Perfil;
+use App\Usuario_perfil;
 
 //use Illuminate\Auth\UserTrait;
 //use Illuminate\Auth\UserInterface;
@@ -21,29 +21,43 @@ class Usuario extends Model implements AuthenticatableContract
 	use Authenticatable;
     use SoftDeletes;
 
-    protected $primaryKey = 'id_usuario';
 	protected $table = 'usuario';
-	protected $fillable = ['nombre','password','perfil_id','nombre_usuario','correo','empresa_id','activo','carga_trabajo'];
+    protected $primaryKey = 'id_usuario';
+	protected $fillable = ['nombre',
+	'apellido_paterno',
+	'apellido_materno',
+	'puesto',
+	'password',
+	'id_usuario_perfil',
+	'id_usuario_empresa',
+	'nombre_usuario',
+	'correo',
+	'activo',
+    'carga_trabajo'];
+
 	protected $dates = ['deleted_at'];
 	protected $hidden = ['password', 'remember_token'];
 
 	protected $casts = [
-		'id_usuario'     => 'integer',
-		'nombre'         => 'string',    
-		'password'       => 'string',
-		'perfil_id'      => 'integer',
-		'nombre_usuario' => 'string',
-		'correo'         => 'string',
-		'empresa_id'     => 'integer',
-		'activo'         => 'integer',
-		'carga_trabajo'  => 'integer',
+		'id_usuario'            => 'integer',
+		'nombre'                => 'string',
+		'apellido_paterno'      => 'string',
+		'apellido_materno'      => 'string',
+		'puesto'                => 'string',
+		'password'              => 'string',
+		'id_usuario_perfil'     => 'integer',
+		'id_usuario_empresa'    => 'integer',
+		'nombre_usuario'        => 'string',
+		'correo'                => 'string',
+		'activo'                => 'integer',
+		'carga_trabajo'         => 'integer',
         
     ];
 
-	public function perfil(){
-		return $this->belongsTo('API\Perfil','perfil_id');
+	public function usuarioperfil(){
+		return $this->belongsTo('API\Usuario_perfil','id_usuario_perfil');
 	}
-	public function empresa(){
-		return $this->belongsTo('API\Empresa','empresa_id');
+	public function usuarioempresa(){
+		return $this->belongsTo('API\Usuario_empresa','id_usuario_empresa');
 	}
 }

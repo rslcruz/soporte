@@ -29,12 +29,17 @@ Route::resource('solicitudes','SolicitudController');
 Route::resource('inventarios','InventarioController');
 Route::resource('resguardantes','ResguardanteController');
 Route::resource('usuariosEquipo','UsuarioEquipoController');	
-Route::resource('antivirus','AntivirusController');	
-Route::resource('switches','SwitchController');
-Route::resource('computadoras','ComputadoraController');
+//Route::resource('antivirus','AntivirusController');	
+//Route::resource('switches','SwitchController');
+//Route::resource('computadoras','ComputadoraController');
 Route::resource('pruebainventario','pruebaInventarioController');
 Route::resource('tecnicoturno','TecnicoTurnoController');
 Route::resource('tipoReparacion','TipoReparacionController');
+Route::resource('almequicte','AlmequiclasificaciontipoequipoController');
+Route::resource('almequite','AlmequitipoequipoController');
+Route::resource('almequime','AlmequimarcaequipoController');
+Route::resource('almequitme','AlmequitipomarcaequipoController');
+
 
 Route::resource('niveldeservicio','NivelServicioController');
 
@@ -99,9 +104,9 @@ Route::get('getComputadorasFull','InventarioController@getComputadorasFull');
 
 Route::resource('ubicaciones','UbicacionController');
 Route::post('auth', 'AuthenticateController@auth');
-/*Route::group(['middleware' => 'cors'], function() {
-    Route::post('auth', 'AuthenticateController@auth');
-});*/
+Route::group(['middleware' => 'cors'], function() {
+Route::post('auth', 'AuthenticateController@auth');
+});
 
 
 

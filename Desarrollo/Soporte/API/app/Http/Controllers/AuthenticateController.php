@@ -24,7 +24,7 @@ class AuthenticateController extends Controller
     public function auth(Request $request)
     {
         // grab credentials from the request
-        $credentials = $request->only('nombre_usuario', 'password');
+        $credentials = $request->only('correo', 'password');
         $token=null;
 
         try {

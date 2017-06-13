@@ -1,0 +1,23 @@
+Pasos para crear otro sistema
+
+1.- comentar la lineas de la libreria de barryvdh, este archivo esta en la carpeta config, archivo app. de la API
+la lineas a comentar son :
+Barryvdh\DomPDF\ServiceProvider::class,  y  'PDF'        => Barryvdh\DomPDF\Facade::class, 
+  
+
+2.- Estando en Putty dentro de la carpeta API del nuevo sistema  instalamos composer:
+
+curl -sS https://getcomposer.org/installer | php
+
+
+3. Instalamos la libreria de barry
+
+composer require barryvdh/laravel-dompdf
+
+4.- se descomentan las lineas que se comentaron en el punto #1
+
+5.- teclamos  desde putty : composer update, despues php artisan serve.
+
+ 
+
+

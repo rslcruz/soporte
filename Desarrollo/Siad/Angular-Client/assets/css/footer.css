@@ -1,0 +1,36 @@
+#footerContent{
+	z-index: 1000;
+	position:fixed;
+	bottom:0;
+	background-image: url(../images/footer.png);
+	width:100%;
+	height: 30px;
+	display:flex;
+	display:webkit-flex;
+}
+#espacioFooter{
+	width:100%;
+	height: 30px;
+}
+
+#usuarioFooter,#salirFooter,#direccionFooter{
+	display:flex;
+	display:webkit-flex;
+	-webkit-justify-content: center;
+    justify-content: center;
+    -webkit-align-items: center;
+    align-items: center;
+}
+
+#usuarioFooter,#salirFooter{
+	width:20%;
+}
+
+#direccionFooter{
+	width:60%;
+}
+
+#salirFooter div{
+	cursor: pointer;
+}
+

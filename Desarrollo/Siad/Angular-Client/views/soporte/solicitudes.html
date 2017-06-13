@@ -1,0 +1,532 @@
+<div id="solicitudesContent" ng-controller="SolicitudesCtrl">
+	<div id="includeMenucontent">
+		<div ng-include="'views/soporte/menuSoporte.html'" onload="includeCargado()"></div>
+	</div>
+	
+	<div id="listaSolicitudes">
+		<ul class="nav nav-tabs">
+			<li class="active"><a ng-click="tab='asignadas'">{{ SolicitudesAsignadas.length + " Asignada(s)" }}</a></li>
+			<li><a ng-click="tab='proceso'">{{ SolicitudesProceso.length + " Proceso"}}</a></li>
+			<li><a ng-click="tab='laboratorio'">{{ SolicitudesLaboratorio.length + " Laboratorio"}}</a></li>
+			<li><a ng-click="tab='garantia'">{{ SolicitudesGarantia.length + " Garantía"}}</a></li>
+			<li><a ng-click="tab='cotizar'">{{ SolicitudesCotizar.length + " Por cotizar"}}</a></li>
+			<li><a ng-click="tab='autorizacion'">{{ SolicitudesAutorizacion.length + " Por aut. enlace"}}</a></li>
+			<li><a ng-click="tab='refaccion'">{{ SolicitudesRefaccion.length + " Espera de refacción"}}</a></li>
+			<li><a ng-click="tab='concluir'">{{ SolicitudesConcluir.length + " Por concluir"}}</a></li>
+			<li><a ng-click="tab='concluidas'">Concluidas</a></li>
+			<li><a ng-click="tab='canceladas'">Canceladas</a></li>
+		</ul>
+	</div>
+	<div id="listaSolicitudesContent" ng-show="solicitudesCargadas">
+		<div ng-switch on="tab">
+			<!-- TABLA DE ASIGNADAS -->
+			<div ng-switch-when="asignadas">
+				<table class="table table-bordered table-striped tablaSolicitudes" ng-if="(SolicitudesAsignadas.length > 0)">
+					<thead>
+						<tr>
+							<td class="tdCenter"><a>Solicitud</a></td>
+							<td class="tdCenter"><a>Descripcion del servicio</a></td>
+							<td class="tdCenter"><a>Inventario</a></td>
+							<td class="tdCenter"><a>Equipo</a></td>
+							<td class="tdCenter"><a>Resguardante</a></td>
+							<td class="tdCenter"><a>Fecha de apertura</a></td>
+							<td class="tdCenter"><a>Técnico asignado</a></td>
+							<td class="tdCenter"><a>Tiempo transcurrido</a></td>
+							<td class="tdCenter"><a>Ver</a></td>
+							<td class="tdCenter"><a>Atender</a></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="Solicitud in SolicitudesAsignadas" on-finish-render="ngRepeatFinished">
+							<td class="tdCenter tdDatos">{{Solicitud.value.id_solicitud_soporte}}</td>
+							<td class="tdDatos">{{ Solicitud.value.falla_reportada }}</td>
+							<td class="tdDatos tdCenter">{{ Solicitud.value.inventario.id_inventario }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.descripcion }}</td>
+							<td class="tdDatos">{{ setResguardante(Solicitud.value.inventario) }}</td>
+							<td class="tdDatos tdCenter">
+								{{ dateFormat(Solicitud.value.fecha_apertura) }}
+							</td>
+							<td class="tdCenter tdDatos">{{ Solicitud.value.tecnico.nombre }}</td>
+							<td class="tdCenter tdDatos">{{ timediff(Solicitud.value.fecha_apertura)}}</td>
+							<td class="tdCenter"> <a href="../API/public/ReportePDF/{{Solicitud.value.id_solicitud_soporte}}"  target="_blank" >
+									<i class="material-icons">insert_drive_file</i>
+
+
+
+							</a></td>
+							<td>
+								<div class="card-action" style="text-align: center;">
+									<a href="#/soporte/solicitudes/editarAsignada/{{Solicitud.value.id_solicitud_soporte}}">
+										<i class="material-icons">settings_applications</i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="sinSolicitudes" ng-if="(SolicitudesAsignadas.length < 1)">
+					No hay solicitudes
+				</div>
+			</div>
+			<!-- TABLA DE EN PROCESO -->
+			<div ng-switch-when="proceso">
+				<table class="table table-bordered table-striped tablaSolicitudes" ng-if="(SolicitudesProceso.length > 0)">
+					<thead>
+						<tr>
+							<td class="tdCenter"><a>Solicitud</a></td>
+							<td class="tdCenter"><a>Descripcion del servicio</a></td>
+							<td class="tdCenter"><a>Inventario</a></td>
+							<td class="tdCenter"><a>Equipo</a></td>
+							<td class="tdCenter"><a>Resguardante</a></td>
+							<td class="tdCenter"><a>Fecha de apertura</a></td>
+							<td class="tdCenter"><a>Técnico asignado</a></td>
+							<td class="tdCenter"><a>Con atención a</a></td>
+							<td class="tdCenter"><a>Diagnóstico</a></td>
+							<td class="tdCenter"><a>Observaciones</a></td>
+							<td class="tdCenter"><a>Tiempo transcurrido</a></td>
+							<td class="tdCenter"><a>Ver</a></td>
+							<td class="tdCenter"><a>Atender</a></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="Solicitud in SolicitudesProceso">
+							<td class="tdCenter tdDatos">{{Solicitud.value.id_solicitud_soporte}}</td>
+							<td class="tdDatos">{{ Solicitud.value.falla_reportada }}</td>
+							<td class="tdDatos tdCenter">{{ Solicitud.value.inventario.id_inventario }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.descripcion }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.resguardante.nombre + " " + Solicitud.value.inventario.resguardante.apellido_paterno + " " + Solicitud.value.inventario.resguardante.apellido_materno }}</td>
+							<td class="tdDatos tdCenter">{{ dateFormat(Solicitud.value.fecha_apertura) }}</td>
+							<td class="tdCenter tdDatos">{{ Solicitud.value.tecnico.nombre }}</td>
+							<td class="tdCenter tdDatos">{{ Solicitud.value.usuario_atendido }}</td>
+							<td class="tdCenter tdDatos">{{ Solicitud.value.diagnostico }}</td>
+							<td class="tdCenter tdDatos">{{ Solicitud.value.observaciones }}</td>
+							<td class="tdCenter tdDatos">{{ timediff(Solicitud.value.fecha_apertura)}}</td>
+							<td class="tdCenter"> <a href="../API/public/ReportePDF/{{Solicitud.value.id_solicitud_soporte}}"  target="_blank" >
+									<i class="material-icons">insert_drive_file</i>
+
+
+
+							</a></td>
+							<td>
+								<div class="card-action" style="text-align: center;">
+									<a href="#/soporte/solicitudes/editarProceso/{{Solicitud.value.id_solicitud_soporte}}">
+										<i class="material-icons">settings_applications</i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="sinSolicitudes" ng-if="(SolicitudesProceso.length < 1)">
+					No hay solicitudes
+				</div>
+			</div>
+
+			<!-- TABLA DE EN LABORATORIO -->
+			<div ng-switch-when="laboratorio">
+				<table class="table table-bordered table-striped tablaSolicitudes" ng-if="(SolicitudesLaboratorio.length > 0)">
+					<thead>
+						<tr>
+							<td class="tdCenter"><a>Solicitud</a></td>
+							<td class="tdCenter"><a>Fecha sol. salida</a></td>
+							<td class="tdCenter"><a>Descripcion del servicio</a></td>
+							<td class="tdCenter"><a>Inventario</a></td>
+							<td class="tdCenter"><a>Equipo</a></td>
+							<td class="tdCenter"><a>Resguardante</a></td>
+							<td class="tdCenter"><a>Fecha de apertura</a></td>
+							<td class="tdCenter"><a>Técnico asignado</a></td>
+							<td class="tdCenter"><a>Diagnóstico</a></td>
+							<td class="tdCenter"><a>Observaciones</a></td>
+							<td class="tdCenter"><a>Tiempo transcurrido</a></td>
+							<td class="tdCenter"><a>Atender</a></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="Solicitud in SolicitudesLaboratorio">
+							<td class="tdCenter tdDatos">{{Solicitud.value.id_solicitud_soporte}}</td>
+							<td class="tdDatos">{{ Solicitud.value.falla_reportada }}</td>
+							<td class="tdDatos tdCenter">{{ Solicitud.value.inventario.id_inventario }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.descripcion }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.resguardante.nombre + " " + Solicitud.value.inventario.resguardante.apellido_paterno + " " + Solicitud.value.inventario.resguardante.apellido_materno }}</td>
+							<td class="tdDatos tdCenter">{{ dateFormat(Solicitud.value.fecha_apertura) }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{ timediff(Solicitud.value.fecha_apertura)}}</td>
+							<td>
+								<div class="card-action" style="text-align: center;">
+									<a href="#/solicitudes/editarAsiganada/{{Solicitud.value.id_solicitud_soporte}}">
+										<i class="material-icons">settings_applications</i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="sinSolicitudes" ng-if="(SolicitudesLaboratorio.length < 1)">
+					No hay solicitudes
+				</div>
+			</div>
+
+			<!-- TABLA DE EN GARANTIA -->
+			<div ng-switch-when="garantia">
+				<table class="table table-bordered table-striped tablaSolicitudes" ng-if="(SolicitudesGarantia.length > 0)">
+					<thead>
+						<tr>
+							<td class="tdCenter"><a>Solicitud</a></td>
+							<td class="tdCenter"><a>Fecha sol. salida</a></td>
+							<td class="tdCenter"><a>Descripcion del servicio</a></td>
+							<td class="tdCenter"><a>Inventario</a></td>
+							<td class="tdCenter"><a>Equipo</a></td>
+							<td class="tdCenter"><a>Resguardante</a></td>
+							<td class="tdCenter"><a>Fecha de apertura</a></td>
+							<td class="tdCenter"><a>Técnico asignado</a></td>
+							<td class="tdCenter"><a>Diagnóstico</a></td>
+							<td class="tdCenter"><a>Observaciones</a></td>
+							<td class="tdCenter"><a>Tiempo transcurrido</a></td>
+							<td class="tdCenter"><a>Atender</a></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="Solicitud in SolicitudesGarantia">
+							<td class="tdCenter tdDatos">{{Solicitud.value.id_solicitud_soporte}}</td>
+							<td class="tdDatos">{{ Solicitud.value.falla_reportada }}</td>
+							<td class="tdDatos tdCenter">{{ Solicitud.value.inventario.id_inventario }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.descripcion }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.resguardante.nombre + " " + Solicitud.value.inventario.resguardante.apellido_paterno + " " + Solicitud.value.inventario.resguardante.apellido_materno }}</td>
+							<td class="tdDatos tdCenter">{{ dateFormat(Solicitud.value.fecha_apertura) }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{ timediff(Solicitud.value.fecha_apertura)}}</td>
+							<td>
+								<div class="card-action" style="text-align: center;">
+									<a href="#/solicitudes/editarAsiganada/{{Solicitud.value.id_solicitud_soporte}}">
+										<i class="material-icons">settings_applications</i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="sinSolicitudes" ng-if="(SolicitudesGarantia.length < 1)">
+					No hay solicitudes
+				</div>
+			</div>
+
+			<!-- TABLA DE POR COTIZAR -->
+			<div ng-switch-when="cotizar">
+				<table class="table table-bordered table-striped tablaSolicitudes" ng-if="(SolicitudesCotizar.length > 0)">
+					<thead>
+						<tr>
+							<td class="tdCenter"><a>Solicitud</a></td>
+							<td class="tdCenter"><a>Fecha sol. salida</a></td>
+							<td class="tdCenter"><a>Descripcion del servicio</a></td>
+							<td class="tdCenter"><a>Inventario</a></td>
+							<td class="tdCenter"><a>Equipo</a></td>
+							<td class="tdCenter"><a>Resguardante</a></td>
+							<td class="tdCenter"><a>Fecha de apertura</a></td>
+							<td class="tdCenter"><a>Técnico asignado</a></td>
+							<td class="tdCenter"><a>Diagnóstico</a></td>
+							<td class="tdCenter"><a>Observaciones</a></td>
+							<td class="tdCenter"><a>Tiempo transcurrido</a></td>
+							<td class="tdCenter"><a>Atender</a></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="Solicitud in SolicitudesCotizar">
+							<td class="tdCenter tdDatos">{{Solicitud.value.id_solicitud_soporte}}</td>
+							<td class="tdDatos">{{ Solicitud.value.falla_reportada }}</td>
+							<td class="tdDatos tdCenter">{{ Solicitud.value.inventario.id_inventario }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.descripcion }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.resguardante.nombre + " " + Solicitud.value.inventario.resguardante.apellido_paterno + " " + Solicitud.value.inventario.resguardante.apellido_materno }}</td>
+							<td class="tdDatos tdCenter">{{ dateFormat(Solicitud.value.fecha_apertura) }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{ timediff(Solicitud.value.fecha_apertura)}}</td>
+							<td>
+								<div class="card-action" style="text-align: center;">
+									<a href="#/solicitudes/editarAsiganada/{{Solicitud.value.id_solicitud_soporte}}">
+										<i class="material-icons">settings_applications</i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="sinSolicitudes" ng-if="(SolicitudesCotizar.length < 1)">
+					No hay solicitudes
+				</div>
+			</div>
+			<!-- TABLA DE POR AUT ENLACE -->
+			<div ng-switch-when="autorizacion">
+				<table class="table table-bordered table-striped tablaSolicitudes" ng-if="(SolicitudesAutorizacion.length > 0)">
+					<thead>
+						<tr>
+							<td class="tdCenter"><a>Solicitud</a></td>
+							<td class="tdCenter"><a>Fecha sol. salida</a></td>
+							<td class="tdCenter"><a>Descripcion del servicio</a></td>
+							<td class="tdCenter"><a>Inventario</a></td>
+							<td class="tdCenter"><a>Equipo</a></td>
+							<td class="tdCenter"><a>Resguardante</a></td>
+							<td class="tdCenter"><a>Fecha de apertura</a></td>
+							<td class="tdCenter"><a>Técnico asignado</a></td>
+							<td class="tdCenter"><a>Diagnóstico</a></td>
+							<td class="tdCenter"><a>Observaciones</a></td>
+							<td class="tdCenter"><a>Tiempo transcurrido</a></td>
+							<td class="tdCenter"><a>Atender</a></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="Solicitud in SolicitudesAutorizacion">
+							<td class="tdCenter tdDatos">{{Solicitud.value.id_solicitud_soporte}}</td>
+							<td class="tdDatos">{{ Solicitud.value.falla_reportada }}</td>
+							<td class="tdDatos tdCenter">{{ Solicitud.value.inventario.id_inventario }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.descripcion }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.resguardante.nombre + " " + Solicitud.value.inventario.resguardante.apellido_paterno + " " + Solicitud.value.inventario.resguardante.apellido_materno }}</td>
+							<td class="tdDatos tdCenter">{{ dateFormat(Solicitud.value.fecha_apertura) }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{ timediff(Solicitud.value.fecha_apertura)}}</td>
+							<td>
+								<div class="card-action" style="text-align: center;">
+									<a href="#/solicitudes/editarAsiganada/{{Solicitud.value.id_solicitud_soporte}}">
+										<i class="material-icons">settings_applications</i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="sinSolicitudes" ng-if="(SolicitudesAutorizacion.length < 1)">
+					No hay solicitudes
+				</div>
+			</div>
+			<!-- TABLA DE ESPERA DE REFACCION -->
+			<div ng-switch-when="refaccion">
+				<table class="table table-bordered table-striped tablaSolicitudes" ng-if="(SolicitudesRefaccion.length > 0)">
+					<thead>
+						<tr>
+							<td class="tdCenter"><a>Solicitud</a></td>
+							<td class="tdCenter"><a>Fecha sol. salida</a></td>
+							<td class="tdCenter"><a>Descripcion del servicio</a></td>
+							<td class="tdCenter"><a>Inventario</a></td>
+							<td class="tdCenter"><a>Equipo</a></td>
+							<td class="tdCenter"><a>Resguardante</a></td>
+							<td class="tdCenter"><a>Fecha de apertura</a></td>
+							<td class="tdCenter"><a>Técnico asignado</a></td>
+							<td class="tdCenter"><a>Diagnóstico</a></td>
+							<td class="tdCenter"><a>Observaciones</a></td>
+							<td class="tdCenter"><a>Tiempo transcurrido</a></td>
+							<td class="tdCenter"><a>Atender</a></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="Solicitud in SolicitudesRefaccion">
+							<td class="tdCenter tdDatos">{{Solicitud.value.id_solicitud_soporte}}</td>
+							<td class="tdDatos">{{ Solicitud.value.falla_reportada }}</td>
+							<td class="tdDatos tdCenter">{{ Solicitud.value.inventario.id_inventario }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.descripcion }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.resguardante.nombre + " " + Solicitud.value.inventario.resguardante.apellido_paterno + " " + Solicitud.value.inventario.resguardante.apellido_materno }}</td>
+							<td class="tdDatos tdCenter">{{ dateFormat(Solicitud.value.fecha_apertura) }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{ timediff(Solicitud.value.fecha_apertura)}}</td>
+							<td>
+								<div class="card-action" style="text-align: center;">
+									<a href="#/solicitudes/editarAsiganada/{{Solicitud.value.id_solicitud_soporte}}">
+										<i class="material-icons">settings_applications</i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="sinSolicitudes" ng-if="(SolicitudesRefaccion.length < 1)">
+					No hay solicitudes
+				</div>
+			</div>
+			<!-- TABLA DE POR CONCLUIR -->
+			<div ng-switch-when="concluir">
+				<table class="table table-bordered table-striped tablaSolicitudes" ng-if="(SolicitudesConcluir.length > 0)">
+					<thead>
+						<tr>
+							<td class="tdCenter"><a>Solicitud</a></td>
+							<td class="tdCenter"><a>Fecha sol. salida</a></td>
+							<td class="tdCenter"><a>Descripcion del servicio</a></td>
+							<td class="tdCenter"><a>Inventario</a></td>
+							<td class="tdCenter"><a>Equipo</a></td>
+							<td class="tdCenter"><a>Resguardante</a></td>
+							<td class="tdCenter"><a>Fecha de apertura</a></td>
+							<td class="tdCenter"><a>Técnico asignado</a></td>
+							<td class="tdCenter"><a>Diagnóstico</a></td>
+							<td class="tdCenter"><a>Observaciones</a></td>
+							<td class="tdCenter"><a>Tiempo transcurrido</a></td>
+							<td class="tdCenter"><a>Atender</a></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="Solicitud in SolicitudesConcluir">
+							<td class="tdCenter tdDatos">{{Solicitud.value.id_solicitud_soporte}}</td>
+							<td class="tdDatos">{{ Solicitud.value.falla_reportada }}</td>
+							<td class="tdDatos tdCenter">{{ Solicitud.value.inventario.id_inventario }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.descripcion }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.resguardante.nombre + " " + Solicitud.value.inventario.resguardante.apellido_paterno + " " + Solicitud.value.inventario.resguardante.apellido_materno }}</td>
+							<td class="tdDatos tdCenter">{{ dateFormat(Solicitud.value.fecha_apertura) }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{ timediff(Solicitud.value.fecha_apertura)}}</td>
+							<td>
+								<div class="card-action" style="text-align: center;">
+									<a href="#/solicitudes/editarAsiganada/{{Solicitud.value.id_solicitud_soporte}}">
+										<i class="material-icons">settings_applications</i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="sinSolicitudes" ng-if="(SolicitudesConcluir.length < 1)">
+					No hay solicitudes
+				</div>
+			</div>
+			<!-- TABLA DE CONCLUIDAS -->
+			<div ng-switch-when="concluidas">
+				<table class="table table-bordered table-striped tablaSolicitudes" ng-if="(SolicitudesConcluidas.length > 0)">
+					<thead>
+						<tr>
+							<td class="tdCenter"><a>Solicitud</a></td>
+							<td class="tdCenter"><a>Fecha sol. salida</a></td>
+							<td class="tdCenter"><a>Descripcion del servicio</a></td>
+							<td class="tdCenter"><a>Inventario</a></td>
+							<td class="tdCenter"><a>Equipo</a></td>
+							<td class="tdCenter"><a>Resguardante</a></td>
+							<td class="tdCenter"><a>Fecha de apertura</a></td>
+							<td class="tdCenter"><a>Técnico asignado</a></td>
+							<td class="tdCenter"><a>Diagnóstico</a></td>
+							<td class="tdCenter"><a>Observaciones</a></td>
+							<td class="tdCenter"><a>Tiempo transcurrido</a></td>
+							<td class="tdCenter"><a>Atender</a></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="Solicitud in SolicitudesConcluidas">
+							<td class="tdCenter tdDatos">{{Solicitud.value.id_solicitud_soporte}}</td>
+							<td class="tdDatos">{{ Solicitud.value.falla_reportada }}</td>
+							<td class="tdDatos tdCenter">{{ Solicitud.value.inventario.id_inventario }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.descripcion }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.resguardante.nombre + " " + Solicitud.value.inventario.resguardante.apellido_paterno + " " + Solicitud.value.inventario.resguardante.apellido_materno }}</td>
+							<td class="tdDatos tdCenter">{{ dateFormat(Solicitud.value.fecha_apertura) }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{ timediff(Solicitud.value.fecha_apertura)}}</td>
+							<td>
+								<div class="card-action" style="text-align: center;">
+									<a href="#/solicitudes/editarAsiganada/{{Solicitud.value.id_solicitud_soporte}}">
+										<i class="material-icons">settings_applications</i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="sinSolicitudes" ng-if="(SolicitudesConcluidas.length < 1)">
+					No hay solicitudes
+				</div>
+			</div>
+			<!-- TABLA DE CANCELADAS -->
+			<div ng-switch-when="canceladas">
+				<table class="table table-bordered table-striped tablaSolicitudes" ng-if="(SolicitudesCanceladas.length > 0)">
+					<thead>
+						<tr>
+							<td class="tdCenter"><a>Solicitud</a></td>
+							<td class="tdCenter"><a>Fecha sol. salida</a></td>
+							<td class="tdCenter"><a>Descripcion del servicio</a></td>
+							<td class="tdCenter"><a>Inventario</a></td>
+							<td class="tdCenter"><a>Equipo</a></td>
+							<td class="tdCenter"><a>Resguardante</a></td>
+							<td class="tdCenter"><a>Fecha de apertura</a></td>
+							<td class="tdCenter"><a>Técnico asignado</a></td>
+							<td class="tdCenter"><a>Diagnóstico</a></td>
+							<td class="tdCenter"><a>Observaciones</a></td>
+							<td class="tdCenter"><a>Tiempo transcurrido</a></td>
+							<td class="tdCenter"><a>Atender</a></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr ng-repeat="Solicitud in SolicitudesCanceladas">
+							<td class="tdCenter tdDatos">{{Solicitud.value.id_solicitud_soporte}}</td>
+							<td class="tdDatos">{{ Solicitud.value.falla_reportada }}</td>
+							<td class="tdDatos tdCenter">{{ Solicitud.value.inventario.id_inventario }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.descripcion }}</td>
+							<td class="tdDatos">{{ Solicitud.value.inventario.resguardante.nombre + " " + Solicitud.value.inventario.resguardante.apellido_paterno + " " + Solicitud.value.inventario.resguardante.apellido_materno }}</td>
+							<td class="tdDatos tdCenter">{{ dateFormat(Solicitud.value.fecha_apertura) }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{  }}</td>
+							<td class="tdCenter tdDatos">{{ timediff(Solicitud.value.fecha_apertura)}}</td>
+							<td>
+								<div class="card-action" style="text-align: center;">
+									<a href="#/solicitudes/editarAsiganada/{{Solicitud.value.id_solicitud_soporte}}">
+										<i class="material-icons">settings_applications</i>
+									</a>
+								</div>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+				<div class="sinSolicitudes" ng-if="(SolicitudesCanceladas.length < 1)">
+					No hay solicitudes
+				</div>
+			</div>
+
+
+
+		</div>
+	</div>
+	<div class="modalCargando" ng-show="!solicitudesCargadas">
+		<div>
+			<img src="assets/images/ajax-loader.gif" alt="">
+			<div>Cargando Solicitudes</div>
+		</div>
+	</div>
+</div>
+<div id="arriba" class="fixed-action-btn">
+	<a class="btn-floating btn-large waves-effect waves-light blue">
+		<i class="large material-icons">trending_flat</i>
+	</a>
+</div>
+
+
+
+<script>
+$( document ).ready(function() {
+	$('#listaSolicitudes ul li').click(function() {
+		$('#listaSolicitudes ul li').removeClass('active');
+		$(this).addClass('active');
+	});
+
+	$('#arriba').click(function(){
+		$("html, body").animate({ scrollTop: 0 }, 1000);
+	});
+
+	$(window).scroll(function(){
+		($(window).scrollTop() > 300) ? $('#arriba').show() : $('#arriba').hide(); 	
+	});
+
+
+});
+</script>

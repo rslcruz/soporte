@@ -1,0 +1,132 @@
+<div id="empresasContent" ng-controller="EmpresaCtrl">
+	<div id="includeMenucontent">
+		<div ng-include="'views/administracion/menuAdministracion.html'" onload="includeCargado()"></div>
+	</div>
+	<div class="container">
+		<!-- BUSCADOR DE EMPRESAS -->
+		<div class="input-field" style="max-width:30%;margin: 20px auto 20px auto;">
+			<i class="material-icons prefix">search</i>
+			<input placeholder="Buscar Empresa" type="text" ng-model="search" style="font-size: 13pt;">
+		</div>
+
+		<!-- TABLA PARA MOSTRAR A LAS EMPRESAS -->
+		<table class="table table-bordered table-striped tableAdmCatEquipos">
+			<thead>
+				<tr>
+					<td class="tdCenter">
+						<a>N°</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'empresa'; sortReverse = !sortReverse">Nombre</a>
+					</td>
+					<td class="tdCenter">
+						<a>Acciones</a>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="Empresa in empresas | orderBy:sortType:sortReverse | filter:search">
+					<td class="tdCenter">{{$index + 1}}</td>
+					<td class="tdDatos">{{ Empresa.empresa }}</td>
+					<td>
+						<div class="card-action" style="text-align:center;">
+							<a href="" data-toggle="modal" data-target="#myModalEditarEmpresa" ng-click="modalEditarEmpresa(Empresa.id_empresa)">
+								<i class="material-icons">edit</i>
+							</a>
+							<a href=""ng-click="modalEliminarEmpresa(Empresa.id_empresa,Empresa.empresa)"data-toggle="modal" data-target="#myModalEliminarEmpresa">
+								<i class="material-icons">delete</i>
+							</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+			<a class="btn-floating btn-large waves-effect waves-light green" data-toggle="modal" data-target="#myModalCrearEmpresa" ng-click="limpiarFormEmpresa()">
+				<i class="large material-icons">add</i>
+			</a>
+		</div>
+
+		<!-- MODAL PARA CREAR EMPRESA -->
+		<div id="myModalCrearEmpresa" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<form ng-submit="agregarEmpresa()">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Agregar Empresa</h4>
+						</div>
+						<div class="modal-body">
+							<label for="">Nombre:</label>
+							<div class="input-field">
+								<input class="inputUsuario" type="text" ng-model="Empresa.empresa" class="validate" required="" aria-required="true">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div id="botoneraModalClasificacion">
+								<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn green">Agregar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- MODAL PARA EDITAR EMPRESA -->
+		<div id="myModalEditarEmpresa" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<form ng-submit="editarEmpresa()">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Editar Empresa</h4>
+						</div>
+						<div class="modal-body">
+							<label for="">Nombre:</label>
+							<div class="input-field">
+								<input class="inputUsuario" type="text" ng-model="EmpresaEditada.empresa" class="validate" required="" aria-required="true">
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div id="botoneraModalClasificacion">
+								<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn green">Editar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- MODAL PARA ELIMINAR EMPRESA -->
+		<div id="myModalEliminarEmpresa" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<form ng-submit="eliminarEmpresa()">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Eliminar Empresa</h4>
+						</div>
+						<div class="modal-body">
+							<div style="text-align:center;font-size:15pt;">
+								{{"¿Deseas eliminar '"+elementoEliminar+"'?"}}
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div id="botoneraModalClasificacion">
+								<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn green">Eliminar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>

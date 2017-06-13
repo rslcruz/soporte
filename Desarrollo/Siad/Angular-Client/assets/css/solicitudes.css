@@ -1,0 +1,190 @@
+#solicitudesContent{
+	display: -webkit-flex; /* Safari */
+    -webkit-flex-wrap: wrap; /* Safari 6.1+ */
+    display: flex;   
+    flex-wrap: wrap;
+}
+
+#includeMenucontent{
+	width:100%; 
+	margin-bottom:20px;
+}
+
+#listaSolicitudes{
+	width:100%;
+}
+
+#listaSolicitudes ul li{
+	cursor: pointer;
+}
+
+#listaSolicitudesContent{
+	width:100%;
+}
+
+.tablaSolicitudes{
+	margin-top: 20px;
+}
+
+.tablaSolicitudes thead tr td a{
+	text-decoration: none;
+}
+
+.sinSolicitudes{
+	font-size: 15pt;
+	text-align: center;
+	color:red;
+	margin: 30px auto;
+}
+
+#arriba{
+	display:none; 
+	bottom: 35px; 
+	right:8px;
+	-ms-transform: rotate(-90deg); /* IE 9 */
+	-webkit-transform: rotate(-90deg); /* Chrome, Safari, Opera */
+	transform: rotate(-90deg);
+}
+
+#btnAddSolicitud{
+	top: 141px; 
+	right: 0;
+}
+
+#btnAddSolicitud > a{
+	width: 45.5px;
+    height: 45.5px;
+}
+
+#btnAddSolicitud > a > i{
+	line-height: 45.5px;
+}
+
+#arriba > a{
+	width: 45.5px;
+    height: 45.5px;
+}
+
+#arriba > a > i{
+	line-height: 45.5px;
+}
+
+#capturarSolicitud .contenedor{
+	max-width: 80%;
+}
+
+.cabecera{
+	background-color:#0074c8;
+
+	height: 25px;
+	font-size: 20px;
+	font-family: arial;
+	margin-bottom: 0px;
+	margin-top: 1000px;
+
+
+}
+
+.contenedorForm textarea, .contenedorForm2 textarea{
+	height:100px;
+	resize: none;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.contenedorForm,.contenedorForm2,.contenedorForm3{
+	width:100%;
+	display: -webkit-flex; /* Safari */
+    -webkit-justify-content: space-between; /* Safari 6.1+ */
+    display: flex;
+    justify-content: space-between;
+}
+
+.contenedorForm > div{
+	width:47%;
+}
+
+.contenedorForm2 > div{
+	width:32%;
+}
+.contenedorForm3 > div{
+	width:24%;
+}
+
+.contenedorForm2 .datetimepicker {
+	margin:10px auto;
+}
+
+.contenedorForm select, .contenedorForm2 select {
+	height: 2rem;
+}
+
+.contenedorForm input, .contenedorForm2 input{
+	height:2rem;
+}
+
+.btnCenter{
+	text-align: center;
+}
+
+#nuevasolicitudcontent{
+	margin-bottom: 20px;
+}
+
+#botoneraSolicitud{
+	width:100%;
+	display: -webkit-flex; /* Safari */
+    display: flex;
+}
+
+#botoneraSolicitud > div{
+	width:50%;
+	text-align: center;
+}
+
+.derechaboton{
+	float: right;
+    background:blue;
+	/*margin-right: 17px;*/
+}
+
+ 
+ 
+/* Estilo por defecto */
+ 
+
+.modalCargando{
+    position:   absolute;
+    top:        216px;
+    left:       0;
+    height:     60%;
+    width:      100%;
+    background: rgba( 255, 255, 255, .8 ) 
+                50% 50% 
+                no-repeat;
+}
+
+.modalCargando >div{
+	font-size: 13pt;
+	margin-top: 100px;
+	text-align: center;
+}
+
+.modalCargando > div > div{
+	margin-top: 10px;
+}
+
+.numsolicitud{
+font-weight:bold;
+color:#0074c8;
+
+}
+ .p1{
+       background-color: red;
+    }
+    .p2{
+       background-color: blue;
+    }
+    .p3{
+       background-color: green;
+    }

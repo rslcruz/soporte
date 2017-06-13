@@ -1,0 +1,26 @@
+#informacionPrincipal{
+	text-align: center;
+}
+
+#informacionPrincipal h1{
+	color:#056caa;
+	letter-spacing: 10pt;
+	text-transform: uppercase;
+}
+
+#informacionPrincipal p{
+	text-align: left;
+}
+
+#p1{
+	font-size: 12pt;
+	margin-top: 20px;
+}
+
+#p2{
+	color:#056caa;
+	font-size: 10pt;
+	font-weight: bold;
+	margin-top: 20px;
+	margin-bottom: 40px;
+}

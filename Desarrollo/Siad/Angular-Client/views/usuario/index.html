@@ -1,0 +1,70 @@
+
+<div class="container" ng-controller="mainController">
+  <div class="input-field" style="max-width:30%;margin: 20px auto 20px auto;">
+    <i class="material-icons prefix">search</i>
+    <input placeholder="Buscar Usuario" type="text" ng-model="search" style="font-size: 13pt;">
+  </div>
+    <table class="table table-bordered table-striped">
+      <thead>
+        <tr>
+          <td class="tdCenter">
+            <a>
+              N°
+            </a>
+          </td>
+          <td class="tdCenter">
+            <a href="" ng-click="sortType = 'nombre'; sortReverse = !sortReverse">
+              Nombre 
+            </a>
+          </td>
+          <td class="tdCenter">
+            <a href="" ng-click="sortType = 'empresa'; sortReverse = !sortReverse">
+            Empresa 
+            </a>
+          </td>
+          <td class="tdCenter">
+            <a href="" ng-click="sortType = 'correo'; sortReverse = !sortReverse">
+            Correo 
+            </a>
+          </td>
+          <td class="tdCenter">
+            <a href="" ng-click="sortType = 'puesto'; sortReverse = !sortReverse">
+            Puesto 
+            </a>
+          </td>
+          <td class="tdCenter">
+            <a href="" ng-click="sortType = 'activo'; sortReverse = !sortReverse">
+            Estado 
+            </a>
+          </td>
+          <td class="tdCenter">
+            <a>
+              Acciones
+            </a>
+          </td>
+        </tr>
+      </thead>
+      
+      <tbody>
+        <tr ng-repeat="Usuario in Usuarios | orderBy:sortType:sortReverse | filter:search">
+          <td class="tdCenter">{{$index + 1}}</td>
+          <td class="tdDatos">{{ Usuario.nombre }}</td>
+          <td class="tdDatos">{{ Usuario.empresa }}</td>
+          <td class="tdDatos">{{ Usuario.correo }}</td>
+          <td class="tdDatos">{{ Usuario.puesto }}</td>
+          <td class="tdCenter tdDatos">{{ (Usuario.activo) ? 'Activo' : 'Baja' }}</td>
+          <td>
+            <div class="card-action" style="text-align: center;">
+              <a href="#/usuarios/edit/{{Usuario.id_usuario}}"><i class="material-icons">edit</i></a>
+              <a href="#" ng-click="removeUsuario(Usuario.id_usuario)"><i class="material-icons">delete</i></a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  <div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+      <a href="#/usuarios/new" class="btn-floating btn-large waves-effect waves-light red">
+        <i class="large material-icons">add</i>
+      </a>
+  </div>
+</div>

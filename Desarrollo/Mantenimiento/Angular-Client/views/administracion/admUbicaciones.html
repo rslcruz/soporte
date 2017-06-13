@@ -1,0 +1,119 @@
+<div id="ubicacionesContent" ng-controller="UbicacionCtrl">
+	<div id="includeMenucontent">
+		<div ng-include="'views/administracion/menuAdministracion.html'" onload="includeCargado()"></div>
+	</div>
+	<div class="container">
+		<!-- BUSCADOR DE UBICACIONES -->
+		<div class="input-field" style="max-width:30%;margin: 20px auto 20px auto;">
+			<i class="material-icons prefix">search</i>
+			<input placeholder="Buscar Ubicacion" type="text" ng-model="search" style="font-size: 13pt;">
+		</div>
+
+		<!-- TABLA PARA MOSTRAR A LAS UBICACIONES -->
+		<table class="table table-bordered table-striped tableAdmCatEquipos">
+			<thead>
+				<tr>
+					<td class="tdCenter">
+						<a>N°</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'edificio'; sortReverse = !sortReverse">Edificio</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'piso'; sortReverse = !sortReverse">Piso</a>
+					</td>
+					<td class="tdCenter">
+						<a>Eliminar</a>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="Ubicacion in ubicaciones | orderBy:sortType:sortReverse | filter:search">
+					<td class="tdCenter">{{$index + 1}}</td>
+					<td class="tdCenter">{{ Ubicacion.edificio }}</td>
+					<td class="tdCenter">{{ Ubicacion.piso }}</td>
+					<td>
+						<div class="card-action" style="text-align:center;">
+							<a href=""ng-click="modalEliminarUbicacion(Ubicacion)"data-toggle="modal" data-target="#myModalEliminarUbicacion">
+								<i class="material-icons">delete</i>
+							</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+			<a class="btn-floating btn-large waves-effect waves-light green" data-toggle="modal" data-target="#myModalCrearUbicacion" ng-click="limpiarFormUbicacion()">
+				<i class="large material-icons">add</i>
+			</a>
+		</div>
+
+		<!-- MODAL PARA CREAR UBICACION -->
+		<div id="myModalCrearUbicacion" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<form ng-submit="agregarUbicacion()">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Agregar Ubicacion</h4>
+						</div>
+						<div class="modal-body">
+							<div class="contDiv2">
+								<div>
+									<label for="">Edificio:</label>
+									<div class="input-field">
+										<select id="selectEdificio" class="selectpicker"data-dropup-auto="false"data-size="6"ng-model="Ubicacion.edificio"ng-options="e.value as e.name for e in edificios">
+										</select>
+									</div>
+								</div>
+								<div>
+									<label for="">Piso:</label>
+									<div class="input-field">
+										<select id="selectPiso" class="selectpicker"data-dropup-auto="false"data-size="6"ng-model="Ubicacion.piso"ng-options="p.value as p.name for p in pisos">
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div id="botoneraModalClasificacion">
+								<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn green">Agregar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+		<!-- MODAL PARA ELIMINAR UBICACION -->
+		<div id="myModalEliminarUbicacion" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<form ng-submit="eliminarUbicacion()">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Eliminar Ubicacion</h4>
+						</div>
+						<div class="modal-body">
+							<div style="text-align:center;font-size:15pt;">
+								{{"¿Deseas eliminar '"+elementoEliminar+"'?"}}
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div id="botoneraModalClasificacion">
+								<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn green">Eliminar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+
+	</div>
+</div>

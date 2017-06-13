@@ -1,0 +1,36 @@
+#loginContent{
+	width:70%;
+	margin:0 auto;
+}
+
+#btnIngresar{
+	display: flex;
+	display: -webkit-flex;
+	justify-content:center;
+	-webkit-justify-content:center;
+}
+
+#imgLogin{
+	width:100px;
+	margin:0 auto 25px auto;
+}
+#imgLogin img{
+	width:100%;
+}
+
+::-webkit-input-placeholder { 
+    color:    #000000;
+    opacity:0.6;
+}
+:-moz-placeholder { 
+   color:    #000000;
+   opacity:  0.6;
+}
+::-moz-placeholder { 
+   color:    #000000;
+   opacity:  0.6;
+}
+:-ms-input-placeholder { 
+   color:    #000000;
+   opacity:0.6;
+}

@@ -1,0 +1,22 @@
+<div id="loginContent" ng-if="!isAuthenticated()">
+	<div class="card-panel contenedor z-depth-3" style="margin-top:100px;">
+		<div id="imgLogin">
+			<img src="assets/images/imtaAgua.png" alt="">
+		</div>
+		<h4 class="center-align tituloUsuario">{{title}}</h4>
+		<form ng-submit="login()">
+			<div class="input-field">
+				<input class="inputUsuario" placeholder="Nombre de Usuario" type="text" ng-model="Usuario.nombre_usuario" class="validate" required="" aria-required="true">
+			</div>
+			<div class="input-field">
+				<input class="inputUsuario" placeholder="Contraseña" type="password" ng-model="Usuario.password" class="validate" required="" aria-required="true">
+			</div>
+			<div id="btnIngresar">
+				<button class="btn waves-effect blue darken-3" type="submit">
+					{{button}}
+				</button> 
+			</div>
+		</form>
+	</div>
+</div>
+

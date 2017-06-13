@@ -1,0 +1,304 @@
+<div id="resguardantesContent" ng-controller="ResguardanteCtrl">
+	<div id="includeMenucontent">
+		<div ng-include="'views/administracion/menuAdministracion.html'" onload="includeCargado()"></div>
+	</div>
+	<div class="container">
+		<!-- BUSCADOR DE RESGUARDANTES -->
+		<div class="input-field" style="max-width:30%;margin: 20px auto 20px auto;">
+			<i class="material-icons prefix">search</i>
+			<input placeholder="Buscar Resguardante" type="text" ng-model="search" style="font-size: 13pt;">
+		</div>
+		<!-- TABLA PARA MOSTRAR A LOS RESGUARDANTES -->
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<td class="tdCenter">
+						<a>N°</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'nombre'; sortReverse = !sortReverse">
+							Nombre
+						</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'apellido_paterno'; sortReverse = !sortReverse">
+							Apellido Paterno
+						</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'apellido_materno'; sortReverse = !sortReverse">
+							Apellido Materno
+						</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'rfc'; sortReverse = !sortReverse">
+							RFC
+						</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'curp'; sortReverse = !sortReverse">
+							Curp
+						</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'email'; sortReverse = !sortReverse">
+							Email
+						</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'puesto'; sortReverse = !sortReverse">
+							Puesto
+						</a>
+					</td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'extension'; sortReverse = !sortReverse">
+							Extensión
+						</a>
+					</td>
+					<td class="tdCenter">
+						<a>Editar</a>
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="Resguardante in resguardantes | orderBy:sortType:sortReverse | filter:search | startFrom:(currentPage-1)*pageSize | limitTo:pageSize">
+					<td class="tdCenter">{{($index + 1)+(pageSize*currentPage-pageSize)}}</td>
+					<td class="tdDatos">{{ Resguardante.nombre }}</td>
+					<td class="tdDatos">{{ Resguardante.apellido_paterno }}</td>
+					<td class="tdDatos">{{ Resguardante.apellido_materno }}</td>
+					<td class="tdDatos">{{ Resguardante.rfc }}</td>
+					<td class="tdDatos">{{ Resguardante.curp }}</td>
+					<td class="tdDatos">{{ Resguardante.email }}</td>
+					<td class="tdDatos">{{ Resguardante.puesto }}</td>
+					<td class="tdCenter">{{ Resguardante.extension }}</td>
+					<td>
+						<div class="card-action" style="text-align:center;">
+							<a href="" data-toggle="modal" data-target="#myModalEditarResguardante" ng-click="modalEditarResguardante(Resguardante.id_resguardante)">
+								<i class="material-icons">edit</i>
+							</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div id="paginationContent">
+			<button class="btn waves-effect blue darken-3" ng-disabled="currentPage == 1" ng-click="currentPage=currentPage-1;arriba()">
+				&lt;
+			</button>
+			{{"Página: "+(currentPage)}}/{{numberOfPages()}}
+			<button class="btn waves-effect blue darken-3" ng-disabled="currentPage >= getData().length/pageSize" ng-click="currentPage=currentPage+1;arriba()">
+				&gt;
+			</button>
+			<select class="selectUsuario" style="width:50px; height:25px;"ng-change="arriba()" 
+			ng-model="currentPage" ng-options="n for n in [] | range:1:numberOfPages()"></select>
+		</div>
+		<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+			<a class="btn-floating btn-large waves-effect waves-light green" data-toggle="modal" data-target="#myModalCrearResguardante" ng-click="limpiarFormResguardante()">
+				<i class="large material-icons">add</i>
+			</a>
+		</div>
+
+		<!-- MODAL PARA CREAR RESGUARDANTE -->
+		<div id="myModalCrearResguardante" class="modal fade" role="dialog">
+			<div class="modal-dialog" style="width:60%">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<form ng-submit="agregarResguardante()">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Agregar Resguardante</h4>
+						</div>
+						<div class="modalCont">
+							<div class="contDiv3">
+								<div>
+									<label for="">Nombre:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="Resguardante.nombre" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+								<div>
+									<label for="">Apellido Paterno:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="Resguardante.apellido_paterno" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+								<div>
+									<label for="">Apellido Materno:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="Resguardante.apellido_materno" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+							</div>
+							<div class="contDiv3">
+								<div>
+									<label for="">RFC:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="Resguardante.rfc" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+								<div>
+									<label for="">Curp:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="Resguardante.curp" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+								<div>
+									<label for="">Email:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="Resguardante.email" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+							</div>
+							<div class="contDiv3">
+								<div>
+									<label for="">Puesto:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="Resguardante.puesto" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+								<div>
+									<label for="">Extensión:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="Resguardante.extension" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+								<div>
+									<label for="">Nacionalidad:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="Resguardante.nacionalidad" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+							</div>
+							<div class="contDiv2">
+								<div>
+									<label for="">Subarea:</label>
+									<div class="input-field col s12 selectpickerResguardante">
+										<select id="selectSubarea" class="selectpicker" data-dropup-auto="false"data-live-search="true" ng-model='Resguardante.subarea_id' data-size="8">
+											<option value="" selected disabled>Selecciona una subarea</option>
+											<option value="{{subarea.id_subarea}}" 
+											data-tokens="{{subarea.subarea}}" 
+											ng-repeat="subarea in subareas" 
+											on-finish-render="ngRepeatSubareaFinished">
+											{{subarea.subarea}}</option>
+										</select>
+									</div>
+								</div>
+								<div>
+									<label for="">Ubicación:</label>
+									<div class="input-field col s12 selectpickerResguardante">
+										<select id="selectUbicacion" class="selectpicker" data-dropup-auto="false" ng-model='Resguardante.ubicacion_id' data-size="8">
+											<option value="" selected disabled>Selecciona una ubicacion</option>
+											<option value="{{u.id_ubicacion}}"ng-repeat="u in ubicaciones" 
+											on-finish-render="ngRepeatUbicacionFinished">
+											{{'Edificio:'+u.edificio+' '+u.piso}}</option>
+										</select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div id="botoneraModalClasificacion">
+								<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn green">Agregar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<!-- MODAL PARA EDITAR RESGUARDANTE -->
+		<div id="myModalEditarResguardante" class="modal fade" role="dialog">
+			<div class="modal-dialog" style="width:60%">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<form ng-submit="editarResguardante()">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Editar Resguardante</h4>
+						</div>
+						<div class="modalCont">
+							<div class="contDiv3">
+								<div>
+									<label for="">Nombre:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="ResguardanteEditado.nombre" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+								<div>
+									<label for="">Apellido Paterno:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="ResguardanteEditado.apellido_paterno" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+								<div>
+									<label for="">Apellido Materno:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="ResguardanteEditado.apellido_materno" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+							</div>
+							<div class="contDiv3">
+								<div>
+									<label for="">RFC:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="ResguardanteEditado.rfc" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+								<div>
+									<label for="">Curp:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="ResguardanteEditado.curp" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+								<div>
+									<label for="">Email:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="ResguardanteEditado.email" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+							</div>
+							<div class="contDiv3">
+								<div>
+									<label for="">Puesto:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="ResguardanteEditado.puesto" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+								<div>
+									<label for="">Extensión:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="ResguardanteEditado.extension" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+								<div>
+									<label for="">Nacionalidad:</label>
+									<div class="input-field">
+										<input class="inputUsuario" type="text" ng-model="ResguardanteEditado.nacionalidad" class="validate" required="" aria-required="true">
+									</div>
+								</div>
+							</div>
+							<div class="contDiv3">
+								<div>
+									<label for="">Ubicación:</label>
+									<div class="input-field col s12 selectpickerResguardante">
+										<select id="selectUbicacionEditar" class="selectpicker"
+										data-dropup-auto="false"data-size="6" 
+										ng-model="ResguardanteEditado.ubicacion_id" 
+										ng-options="u.id_ubicacion as 'Edificio: '+u.edificio+' '+u.piso for u in ubicaciones"></select>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="modal-footer">
+							<div id="botoneraModalClasificacion">
+								<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn green">Editar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,10 @@
+<div class="nav-wrapper" >
+	<ul id="nav-menu-principal" class="right hide-on-med-and-down">
+		<li id="inicioLi"><a href="#/inicio" >Inicio</a></li>
+		<li id="sporteLi" ng-if="isCTecnico() || isMesaAyuda() || isAdministrator()"><a href="#/soporte/solicitudes">Soporte</a></li>
+		<li id="baseLi" ng-if="isCRed() || isMesaAyuda() || isAdministrator()"><a href="">Base de Conocimiento</a></li>
+		<li id="inventarioLi" ng-if="isCTelefonia() || isMesaAyuda() || isAdministrator()"><a href="#/inventario/listaInventario">Inventario</a></li>
+		<li id="dashLi" ng-if="isCTelefonia() || isMesaAyuda() || isAdministrator()"><a href="">Dashboard</a></li>
+		<li id="admLI" ng-if="isAdministrator()"><a href="#/administracion/usuarios">Administración de Sistema</a></li>
+	</ul>
+</div>

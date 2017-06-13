@@ -1,0 +1,217 @@
+<div id="editarAsiganadaContent" ng-controller="EditarAsignadaCtrl"> 
+	<div id="includeMenucontent">
+		<div ng-include="'views/soporte/menuSoporte.html'" onload="includeCargado()"></div>
+	</div>
+	<!-- {{ Solicitud }} -->
+	<div class="row">
+<div class="col s9 " style="margin-top:-20px;" ><h3 class="numsolicitud" style="margin-top:2px; margin-left:8px;">SOLICITUD DE SERVICIO NÚMERO {{Solicitud.id_solicitud_soporte}} (ASIGNADA)</h3></div>
+<div class="col s3 " style="margin-top:-20px;">
+	<a href="/#/soporte/solicitudes" class="waves-effect waves-light btn derechaboton" style="margin-top:1px; margin-right:7px"><i class="fa fa-arrow-left" aria-hidden="true"></i> Regresar</a>
+  	</div>
+  	</div>
+<div class="row" style="margin-top:-13px;">
+	<div class="col s1" style="margin-bottom: 18px;">
+
+	<i class="large material-icons">comment</i>
+		</div>
+		<div class="col s11" style="margin-bottom: 18px;"> 
+	<span>			
+Una vez asignado un servicio, la primera tarea es realizar un diagnóstico, y para soportar el mismo se deberá hacer uso de "software especializado", asi como la propuesta de solución.
+		</span>
+	</div>
+	
+
+
+    </div>
+
+	<ul class="nav nav-tabs" style="margin-top:-50px; margin-bottom:10px;">
+ <li><i class="fa fa-file-o fa-2x" aria-hidden="true" style="margin-right:10px;" data-toggle="tooltip"  data-placement="top" title="Solicitud de servicio" ng-click="divsol()"></i>
+</li>
+ <li><i class="fa fa-desktop fa-2x" aria-hidden="true" style="margin-right:10px;" data-toggle="tooltip"  data-placement="top" title="Bien instrumental" ng-click="divinv()"></i>
+</li>
+ <li><i class="fa fa-user fa-2x" aria-hidden="true" style="margin-right:10px;" data-toggle="tooltip"  data-placement="top" title="Datos del resguardante" ng-click="divresg()"></i>
+</li>
+<li>
+	<i class="fa fa-clone fa-2x" aria-hidden="true" style="margin-right:10px;" data-toggle="tooltip"  data-placement="top" title="Vista completa" ng-click="divtodo()"></i>
+
+</li>
+ </ul>
+	<form ng-submit="editarAsignada()">
+	<div ng-show="asignada">
+
+	<div class="cabecera col s12" style="margin-top: -1px;">	
+	<span style="color:#FFFFFF;margin-left:7px;">DIAGNÓSTICO DE LA SOLICITUD DE SERVICIO</span>
+   </div>
+
+		<div class="contenedorForm2">
+
+			<div>
+				<label for="">Inventario:</label>
+				<div class="input-field">
+					<input class="inputUsuario" value="{{ Solicitud.inventario.id_inventario }}" readonly >
+				</div>
+				<label for="">Descripción:</label>
+				<div class="input-field">
+					<textarea required="" aria-required="true" rows="5" class="inputUsuario" placeholder="Descripción del servicio" class="materialize-textarea" 
+					ng-model="Solicitud.falla_reportada" readonly></textarea>
+				</div>
+				<label>Fecha y hora de atención:</label>
+				<div class="dropdown" style="margin-bottom:10px;">
+					<a class="dropdown-toggle" id="dropdown2" role="button" data-toggle="dropdown" data-target="#" href="#">
+						<div class="input-group">
+							<input type="text" class="form-control" style="text-align: center;border: 1px solid #9e9e9e;
+							border-radius: 8px 0 0 8px;
+							" value="{{dateFormat(Solicitud.fecha_atencion)}}" readonly>
+							<span class="input-group-addon">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</span>
+						</div>
+					</a>
+					<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+						<datetimepicker data-ng-model="Solicitud.fecha_atencion" data-datetimepicker-config="{ dropdownSelector: '#dropdown2' }"/>
+					</ul> 
+
+					{{Solicitud.fecha_atencion}}
+				</div>
+				<label for="">Agregar observación:</label>
+				<div class="input-field">
+					<textarea  rows="5" class="inputUsuario" class="materialize-textarea" 
+					ng-model="agregarObservacion" ></textarea>
+				</div>
+			</div>
+			<div>
+				<label for="">Servicio:</label>
+				<div class="input-field">
+					<input class="inputUsuario" value="{{ Solicitud.servicio_solicitado.servicio_solicitado }}" readonly >
+				</div>
+				<label for="">Observación:</label>
+				<div class="input-field">
+					<textarea  rows="5" class="inputUsuario" placeholder="Observación" class="materialize-textarea" 
+					ng-model="Solicitud.observaciones" readonly></textarea>
+				</div>
+				<label for="">Atender solicitud como:</label>
+				<div class="input-field col s12">
+					<select class="selectUsuario" ng-init="tipoAtencion = options[0]" ng-model="tipoAtencion" ng-options="option.name for option in options">
+					</select>
+				</div>
+				<label for="">Técnico que atiende:</label>
+				<div class="input-field">
+					<input class="inputUsuario" value="{{ Solicitud.tecnico.nombre }}" readonly >
+				</div>
+				<label for="">Origen de Solicitud:</label>
+				<div class="input-field">
+					<input class="inputUsuario" value="{{ Solicitud.usuario.nombre +' - '+ Solicitud.usuario.perfil.perfil }}" readonly >
+				</div>
+			</div>
+			<div>
+				<label>Fecha de apertura:</label>
+				<div class="input-field">
+					<input class="inputUsuario" value="{{ dateFormat(Solicitud.fecha_apertura) }}" readonly >
+				</div>
+				<label for="">Diagnóstico:</label>
+				<div class="input-field">
+					<textarea  rows="5" class="inputUsuario validate" required="" aria-required="true" placeholder="Diagnóstico" class="materialize-textarea" 
+					ng-model="Solicitud.diagnostico" ></textarea>
+				</div>
+				<label for="">Cambiar estado de solicitud:</label>
+				<div class="input-field col s12">
+					<select class="selectUsuario" ng-init="estatus = optionsEstatus[0]" ng-model="estatus" 
+					ng-options="option.name for option in optionsEstatus">
+					</select>
+					
+					
+				</div>
+				<button class="btn waves-effect blue darken-3" type="submit">
+					Guardar
+				</button>
+			</div>
+		</div>
+		</div>
+	</form>
+	<!-- Inventario -->
+	<div ng-show="asignadai">
+	<div class="cabecera col s12" style="margin-top: -1px;">	
+	<span style="color:#FFFFFF;margin-left:7px;">INFORMACIÓN DE INVENTARIO</span>	
+   </div>
+	
+	<div class="contenedorForm">
+		<div>
+			<label for="">Descripción:</label>
+			<div class="input-field">
+				<input class="inputUsuario" value="{{ Solicitud.inventario.descripcion }}" readonly >
+			</div>
+			<label for="">Modelo:</label>
+			<div class="input-field">
+				<input class="inputUsuario" value="{{ Solicitud.inventario.modelo.modelo_equipo }}" readonly >
+			</div>
+		</div>
+		<div>
+			<label for="">Marca:</label>
+			<div class="input-field">
+				<input class="inputUsuario" value="{{ Solicitud.inventario.modelo.tipo_marca_equipo.marca_equipo.marca_equipo }}" readonly >
+			</div>
+			<label for="">Serie:</label>
+			<div class="input-field">
+				<input class="inputUsuario" value="{{ Solicitud.inventario.serie }}" readonly >
+			</div>
+		</div>
+	</div>
+ </div>
+	<!-- Resguardante -->
+	<div ng-show="asignadar"> 
+	<div class="cabecera col s12" style="margin-top: -1px;">
+	
+			<span style="color:#FFFFFF;margin-left:7px;">RESGUARDANTE</span>
+	
+   </div>
+	<div class="contenedorForm2">
+		<div>
+			<label for="">Nombre:</label>
+			<div class="input-field">
+				<input class="inputUsuario" value="{{ Solicitud.inventario.resguardante.nombre }}" readonly>
+			</div>
+		</div>
+		<div>
+			<label for="">Apellido paterno:</label>
+			<div class="input-field">
+				<input class="inputUsuario" value="{{ Solicitud.inventario.resguardante.apellido_paterno }}" readonly>
+			</div>
+		</div>
+		<div>
+			<label for="">Apellido materno:</label>
+			<div class="input-field">
+				<input class="inputUsuario" value="{{ Solicitud.inventario.resguardante.apellido_materno }}" readonly>
+			</div>
+		</div>
+	</div>
+	<div class="contenedorForm2">
+		<div>
+			<label for="">Area:</label>
+			<div class="input-field">
+				<input class="inputUsuario" value="{{ Solicitud.inventario.resguardante.subarea.area.area }}" readonly >
+			</div>
+		</div>
+		<div>
+			<label for="">Subarea:</label>
+			<div class="input-field">
+				<input class="inputUsuario" value="{{ Solicitud.inventario.resguardante.subarea.subarea }}" readonly >
+			</div>
+		</div>
+		<div>
+			<label for="">Extension:</label>
+			<div class="input-field">
+				<input class="inputUsuario" value="{{ Solicitud.inventario.resguardante.extension }}" readonly >
+			</div>
+		</div>
+	</div>
+
+</div>
+<script>
+$( document ).ready(function() {
+	$("html, body").animate({ scrollTop: 0 }, 1000);
+});
+
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>

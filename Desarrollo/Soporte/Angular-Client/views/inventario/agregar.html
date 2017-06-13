@@ -1,0 +1,503 @@
+<div id="agregarContent" ng-controller="AgregarInventarioCtrl">
+	<div id="includeMenucontent">
+		<div ng-include="'views/inventario/menuInventario.html'" onload="includeCargado()"></div>
+	</div>
+	<h4 class="tituloInventario">Información de inventario:</h4>
+	<form ng-submit="agregarInventario()">
+		<div class="contenedorForm3">
+			<div>
+				<label for="">Codigo:</label>
+				<div class="input-field">
+					<input class="inputUsuario" onkeypress='return event.charCode >= 48 && event.charCode <= 57' ng-model='Inventario.id_inventario' class="validate" required="" aria-required="true">
+				</div>
+			</div>
+			<div>
+				<label for="">Nombre de equipo:</label>
+				<div class="input-field">
+					<input class="inputUsuario" ng-model='Inventario.nombre_equipo' class="validate" required="" aria-required="true" >
+				</div>
+			</div>
+			<div>
+				<label for="">Descripción:</label>
+				<div class="input-field">
+					<input class="inputUsuario" ng-model='Inventario.descripcion' class="validate" required="" aria-required="true">
+				</div>
+			</div>
+			<div>
+				<label for="">Serie:</label>
+				<div class="input-field">
+					<input class="inputUsuario" ng-model='Inventario.serie' >
+				</div>
+			</div>
+		</div>
+		<div class="contenedorForm3">
+			<div>
+				<label for="">Clasificación de equipo:</label>
+				<div class="input-field col s12 selectpickerResguardante">
+					<select id="selectClasificacion" class="selectpicker" data-dropup-auto="false"ng-model='id_clasificacion_tipo_equipo' ng-change="clasificacionCambiada()" >
+						<option value="" selected disabled>Selecciona una clasificación</option>
+						<option value="{{clasificacion.id_clasificacion_tipo_equipo}}" 
+						ng-repeat="clasificacion in clasificacionesTipoEquipo" 
+						on-finish-render="ngRepeatClasificacionFinished" >
+						{{clasificacion.clasificacion_tipo_equipo}}</option>
+					</select>
+				</div>	
+			</div>
+			<div>
+				<label for="">Tipo:</label>
+				<div id="divSelectTipo" class="input-field col s12 selectpickerResguardante">
+					<select id="selectTipo" class="selectpicker" data-dropup-auto="false" ng-model='id_tipo_equipo'ng-change="tipoCambiado()">
+						<option value="" selected disabled>Selecciona un tipo</option>
+						<option value="{{tipo.id_tipo_equipo}}" 
+						ng-repeat="tipo in tiposEquipo"
+						on-finish-render="ngRepeatTipoFinished">
+						{{tipo.tipo_equipo}}</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<label for="">Marca:</label>
+				<div class="input-field col s12 selectpickerResguardante">
+					<select id="selectMarca" class="selectpicker" data-dropup-auto="false"  ng-model='id_marca_equipo' ng-change="marcaCambiada()">
+						<option value="" selected disabled>Selecciona una marca</option>
+						<option value="{{marca.id_marca_equipo}}" 
+						data-tokens="{{marca.marca_equipo}}" 
+						ng-repeat="marca in marcasEquipo" 
+						on-finish-render="ngRepeatMarcaFinished">
+						{{marca.marca_equipo}}</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<label for="">Modelo:</label>
+				<div class="input-field col s12 selectpickerResguardante">
+					<select id="selectModelo" class="selectpicker" data-dropup-auto="false" ng-model='id_modelo_equipo' ng-change="modeloCambiado()">
+						<option value="" selected disabled>Selecciona un modelo</option>
+						<option value="{{modelo.id_modelo_equipo}}" 
+						data-tokens="{{modelo.modelo_equipo}}" 
+						ng-repeat="modelo in modelosEquipo" 
+						on-finish-render="ngRepeatModeloFinished">
+						{{modelo.modelo_equipo}}</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="contenedorForm3">
+			<div>
+				<label for="">Ubicación:</label>
+				<div class="input-field col s12 selectpickerResguardante">
+					<select id="selectUbicacionInventario" class="selectpicker" data-dropup-auto="false" ng-model='Inventario.ubicacion_id' data-size="8" ng-change="ubicacionCambiada()">
+						<option value="" selected disabled>Selecciona una ubicacion</option>
+						<option value="{{u.id_ubicacion}}"ng-repeat="u in ubicaciones" 
+						on-finish-render="ngRepeatUbicacionInventarioFinished">
+						{{'Edificio:'+u.edificio+' '+u.piso}}</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<label for="">Resguardante:</label>
+				<div class="input-field col s12 selectpickerResguardante">
+					<select id="selectResguardante" class="selectpicker" data-dropup-auto="false" data-live-search="true" ng-model='Inventario.resguardante_id' data-size="8" >
+						<option value="" selected disabled>Selecciona un Resguardante</option>
+						<optgroup label="{{subarea.subarea}}" ng-repeat="subarea in subareas"on-finish-render="ngRepeatResguardanteFinished">
+							<option value="{{resguardante.id_resguardante}}" 
+							data-tokens="{{resguardante.nombre +' '+resguardante.apellido_paterno +' '+resguardante.apellido_materno }}" 
+							ng-repeat="resguardante in subarea.resguardantes">
+							{{resguardante.nombre +' '+resguardante.apellido_paterno +' '+resguardante.apellido_materno}}</option>
+						</optgroup>
+					</select>
+				</div>
+			</div>
+			<div>
+				<input id="checkboxUsuario" type="checkbox" value="" 
+				ng-model="ckbUsuario" 
+				ng-click="clickcheckboxUsuario()">
+				<label for="">Usuario:</label>
+				<div class="input-field col s12 selectpickerResguardante">
+					<select id="selectUsuario" class="selectpicker" data-dropup-auto="false" data-live-search="true"ng-model='Inventario.encargado_id' disabled data-size="8">
+						<option value="" selected disabled>Selecciona un Usuario</option>
+						<option value="{{usuario.id_usuario_equipo}}"data-tokens="{{usuario.nombre +' '+usuario.apellido_paterno +' '+usuario.apellido_materno }}"ng-repeat="usuario in usuarios"	on-finish-render="ngRepeatUsuarioFinished">
+							{{usuario.nombre +' '+usuario.apellido_paterno +' '+usuario.apellido_materno}}
+						</option>
+					</select>
+				</div>
+			</div>
+			<div>
+				<label for="">Firma responsiva:</label>
+				<div class="input-field col s12 selectpickerResguardante">
+					<input class="radioInventarioActivo" type="radio" ng-model="Inventario.responsiva_firmada" value="1">Si
+					<input class="radioInventarioActivo" type="radio" ng-model="Inventario.responsiva_firmada" value="0">No
+				</div>
+			</div>
+		</div>
+		<div class="lineaDivisora"></div>
+		<div class="contenedorForm3">
+			<div>
+				<input id="checkboxUsuarioNuevo" type="checkbox" value="" 
+				ng-model="ckbUsuarioNuevo" 
+				ng-click="clickckbUsuarioNuevo()">
+				<label for="">Usuario Nuevo:</label>
+			</div>
+		</div>
+		<div id="contUsuarioNuevo" ng-if="ckbUsuarioNuevo">
+			<div class="contenedorForm3">
+				<div>
+					<label for="">Nombre:</label>
+					<div class="input-field">
+						<input class="inputUsuario" ng-model='UsuarioNuevo.nombre'
+						class="validate" required="{{ckbUsuarioNuevo}}" 
+						aria-required="{{ckbUsuarioNuevo}}"> 
+					</div>
+				</div>
+				<div>
+					<label for="">Apellido Paterno:</label>
+					<div class="input-field">
+						<input class="inputUsuario" ng-model='UsuarioNuevo.apellido_paterno' 
+						class="validate" required="{{ckbUsuarioNuevo}}" 
+						aria-required="{{ckbUsuarioNuevo}}">
+					</div>
+				</div>
+				<div>
+					<label for="">Apellido Materno:</label>
+					<div class="input-field">
+						<input class="inputUsuario" ng-model='UsuarioNuevo.apellido_materno' 
+						class="validate" required="{{ckbUsuarioNuevo}}" 
+						aria-required="{{ckbUsuarioNuevo}}">
+					</div>
+				</div>
+				<div>
+					<label for="">Correo:</label>
+					<div class="input-field">
+						<input class="inputUsuario" ng-model='UsuarioNuevo.correo' 
+						class="validate" type="email" required="{{ckbUsuarioNuevo}}" 
+						aria-required="{{ckbUsuarioNuevo}}">
+					</div>
+				</div>
+			</div>
+			<div class="contenedorForm3">
+				<div>
+					<label for="">Extensión:</label>
+					<div class="input-field">
+						<input class="inputUsuario" onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+						ng-model='UsuarioNuevo.extension' 
+						class="validate" required="{{ckbUsuarioNuevo}}" 
+						aria-required="{{ckbUsuarioNuevo}}">
+					</div>
+				</div>
+				<div>
+					<label for="">Puesto:</label>
+					<div class="input-field">
+						<input class="inputUsuario" ng-model='UsuarioNuevo.puesto' 
+						class="validate" required="{{ckbUsuarioNuevo}}" 
+						aria-required="{{ckbUsuarioNuevo}}">
+					</div>
+				</div>
+				<div>
+					<label for="">Subarea:</label>
+					<div class="input-field col s12 selectpickerResguardante">
+						<select id="selectSubarea" class="selectpicker" data-dropup-auto="false"data-live-search="true" ng-model='UsuarioNuevo.subarea_id' data-size="8">
+							<option value="" selected disabled>Selecciona una subarea</option>
+							<option value="{{subarea.id_subarea}}" 
+							data-tokens="{{subarea.subarea}}" 
+							ng-repeat="subarea in subareas" 
+							on-finish-render="ngRepeatSubareaFinished">
+							{{subarea.subarea}}</option>
+						</select>
+					</div>
+				</div>
+				<div>
+					<label for="">Ubicación:</label>
+					<div class="input-field col s12 selectpickerResguardante">
+						<select id="selectUbicacion" class="selectpicker" data-dropup-auto="false" ng-model='UsuarioNuevo.ubicacion_id' data-size="8">
+							<option value="" selected disabled>Selecciona una ubicacion</option>
+							<option value="{{u.id_ubicacion}}"ng-repeat="u in ubicaciones" 
+							on-finish-render="ngRepeatUbicacionFinished">
+							{{'Edificio:'+u.edificio+' '+u.piso}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="contenedorForm3">
+				<div>
+					<label for="">Periodo uso:</label>
+					<div class="input-field">
+						<input class="inputUsuario" ng-model='UsuarioNuevo.periodo_uso' 
+						class="validate" required="{{ckbUsuarioNuevo}}" 
+						aria-required="{{ckbUsuarioNuevo}}">
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="lineaDivisora"></div>
+		<div class="contenedorForm3">
+			<div>
+				<input id="checkboxEquipoRed" type="checkbox" ng-model="ckbEquipoRed" ng-click="clickcheckboxEquipo()">
+				<label for="">PC:</label>
+			</div>
+		</div>
+		<div id="contEquipoRed" ng-show="ckbEquipoRed">
+			<div class="contenedorForm3" >
+				<div>
+					<label for="">Dirección IP:</label>
+					<div class="input-field">
+						<input class="inputUsuario ip_address" ng-model='Computadora.ip'
+						class="validate" required="{{ckbEquipoRed}}"
+						pattern="^([0-9]{1,3}\.){3}[0-9]{1,3}$"
+						ng-disabled="!ckbEquipoRed"
+						aria-required="{{ckbEquipoRed}}"
+						> 
+					</div>
+				</div>
+				<div>
+					<label for="">Mac Address:</label>
+					<div class="input-field">
+						<input id="macAddress" class="inputUsuario" ng-model='Computadora.mac_address' 
+						class="validate" required="{{ckbEquipoRed}}"
+						ng-disabled="!ckbEquipoRed" aria-required="{{ckbEquipoRed}}"
+						maxlength="17">
+					</div>
+				</div>
+				<div>
+					<label for="">Antivirus:</label>
+					<div class="input-field col s12 selectpickerResguardante">
+						<select id="selectAntivirus" class="selectpicker" data-dropup-auto="false" data-live-search="true"ng-model='Computadora.antivirus_id' data-size="8">
+							<option value="" selected disabled>Selecciona un Antivirus</option>
+							<option value="{{anti.id_antivirus}}"data-tokens="{{anti.antivirus }}"ng-repeat="anti in antivirus"on-finish-render="ngRepeatAntivirusFinished">
+								{{anti.antivirus}}
+							</option>
+						</select>
+					</div>
+				</div>
+				<div>
+					<label for="">Accesorios:</label>
+					<div class="input-field">
+						<input class="inputUsuario" ng-model='Computadora.accesorios'>
+					</div>
+				</div>
+			</div>
+			<div class="contenedorForm3">
+				<div>
+					<label for="">Cambio de nombre de equipo:</label>
+					<div class="input-field">
+						<input class="inputUsuario" ng-model='Computadora.cambio_nombre_equipo'>
+					</div>
+				</div>
+				<div>
+					<label for="">Marca S.O:</label>
+					<div class="input-field col s12 selectpickerResguardante">
+						<select id="selectMarcaSO" class="selectpicker" data-dropup-auto="false"ng-model='id_marca_sistema_operativo' ng-change="marcaSOCambiada()" >
+							<option value="" selected disabled>Selecciona una marca</option>
+							<option value="{{m.id_marca_sistema_operativo}}" 
+							ng-repeat="m in marcasSO" 
+							on-finish-render="ngRepeatMarcasSOFinished" >
+							{{m.marca_sistema_operativo}}</option>
+						</select>
+					</div>	
+				</div>
+				<div>
+					<label for="">Sistema Operativo:</label>
+					<div class="input-field col s12 selectpickerResguardante">
+						<select id="selectSO" class="selectpicker" data-dropup-auto="false" ng-model='id_sistema_operativo'ng-change="SOCambiado()">
+							<option value="" selected disabled>Selecciona un sistema operativo</option>
+							<option value="{{s.id_sistema_operativo}}" 
+							ng-repeat="s in sistemasOperativos"
+							on-finish-render="ngRepeatSOFinished">
+							{{s.sistema_operativo}}</option>
+						</select>
+					</div>
+				</div>
+				<div>
+					<label for="">Versión S.O:</label>
+					<div class="input-field col s12 selectpickerResguardante">
+						<select id="selectVersion" class="selectpicker" data-dropup-auto="false"  ng-model='Computadora.sistema_operativo_version_id' ng-change="versionCambiada()">
+							<option value="" selected disabled>Selecciona una versión</option>
+							<option value="{{v.id_version_sistema_operativo}}" 
+							data-tokens="{{v.version_sistema_operativo}}" 
+							ng-repeat="v in versionesSO" 
+							on-finish-render="ngRepeatVersionFinished">
+							{{v.version_sistema_operativo}}</option>
+						</select>
+					</div>
+				</div>
+			</div>
+			<div class="contenedorForm3">
+				<div>
+					<label>Ingreso a dominio</label>
+					<div class="input-field col s12 selectpickerResguardante">
+						<input class="radioInventarioActivo" type="radio" ng-model="Computadora.ingreso_a_dominio" value="1">Si
+						<input class="radioInventarioActivo" type="radio" ng-model="Computadora.ingreso_a_dominio" value="0">No
+					</div>
+				</div>
+				<div>
+					<label>OCS Inventory instalado</label>
+					<div class="input-field col s12 selectpickerResguardante">
+						<input class="radioInventarioActivo" type="radio" ng-model="Computadora.ocs_inventory" value="1">Si
+						<input class="radioInventarioActivo" type="radio" ng-model="Computadora.ocs_inventory" value="0">No
+					</div>
+				</div>
+				<div>
+					<label for="">Nombre de usuario en dominio:</label>
+					<div class="input-field">
+						<input class="inputUsuario" ng-model='Computadora.nombre_usuario_dominio'>
+					</div>
+				</div>
+				<div>
+					<label for="">Version de office:</label>
+					<div class="input-field">
+						<input class="inputUsuario" ng-model='Computadora.version_office'>
+					</div>
+				</div>
+			</div>
+			<div class="contenedorForm3">
+				<div>
+					<label for="">Observaciones:</label>
+					<div class="input-field">
+						<textarea rows="5" class="inputUsuario"class="materialize-textarea"ng-model="Computadora.observaciones"></textarea>
+					</div>
+				</div>
+			</div>
+			<div class="lineaDivisora"></div>
+			<div class="contenedorForm3">
+				<div>
+					<input id="checkboxRedCableada" type="checkbox" ng-model="ckbRedCableada">
+					<label for="">Red cableada:</label>
+				</div>
+			</div>
+			<div id="contSwitch" ng-show="ckbRedCableada">
+				<div class="contenedorForm3">
+					<div>
+						<label for="">Nodo:</label>
+						<div class="input-field">
+							<input class="inputUsuario" ng-model='Computadora.RedCableada.nodo'
+							onkeypress='return event.charCode >= 48 && event.charCode <= 57'  
+							class="validate" required="{{ckbRedCableada}}" 
+							aria-required="{{ckbRedCableada}}">
+						</div>
+					</div>
+					<div>
+						<label for="">Puerto:</label>
+						<div class="input-field">
+							<input class="inputUsuario" ng-model='Computadora.RedCableada.puerto' 
+							class="validate" required="{{ckbRedCableada}}" 
+							aria-required="{{ckbRedCableada}}">
+						</div>
+					</div>
+					<div>
+						<label for="">Longitud:</label>
+						<div class="input-field">
+							<input class="inputUsuario" type="number" ng-model='Computadora.RedCableada.longitud' 
+							class="validate" required="{{ckbRedCableada}}" step="0.1" 
+							aria-required="{{ckbRedCableada}}">
+						</div>
+					</div>
+					<div>
+						<label for="">Categoría:</label>
+						<div class="input-field">
+							<input class="inputUsuario" ng-model='Computadora.RedCableada.categoria' class="validate" required="{{ckbRedCableada}}" 
+							aria-required="{{ckbRedCableada}}">
+						</div>
+					</div>
+				</div>
+				<div class="contenedorForm3">
+					<div>
+						<label for="">Velocidad:</label>
+						<div class="input-field">
+							<input class="inputUsuario" ng-model='Computadora.RedCableada.velocidad'
+							onkeypress='return event.charCode >= 48 && event.charCode <= 57' 
+							class="validate" required="{{ckbRedCableada}}" 
+							aria-required="{{ckbRedCableada}}">
+						</div>
+					</div>
+					<div>
+						<label for="">Switch:</label>
+						<div class="input-field col s12 selectpickerResguardante">
+							<select id="selectSwitch" class="selectpicker" data-dropup-auto="true" ng-model='Computadora.RedCableada.switch_id' data-size="8">
+								<option value="" selected disabled>Selecciona un switch</option>
+								<option value="{{s.id_switch}}"ng-repeat="s in switches" 
+								on-finish-render="ngRepeatSwitchFinished">
+								{{'Edificio: '+s.inventario.ubicacion.edificio+' '+s.inventario.ubicacion.piso+' - IP: '+s.ip}}</option>
+							</select>
+						</div>
+					</div>
+					<div></div>
+					<div></div>
+				</div>
+			</div>
+		</div>
+		<div class="lineaDivisora"></div>
+		<div class="contenedorForm3">
+			<div>
+				<input id="checkboxSwitch" ng-click="clickcheckboxSwitch()" type="checkbox" ng-model="ckbSwitch">
+				<label for="">Switch:</label>
+			</div>
+		</div>
+		<div id="contSwitch" ng-show="ckbSwitch">
+			<div class="contenedorForm3">
+				<div>
+					<label for="">Dirección IP:</label>
+					<div class="input-field">
+						<input class="inputUsuario ip_address" ng-model='Switch.ip'
+						class="validate" required="{{ckbSwitch}}"
+						pattern="^([0-9]{1,3}\.){3}[0-9]{1,3}$"
+						ng-disabled="!ckbSwitch"
+						aria-required="{{ckbSwitch}}"
+						> 
+					</div>
+				</div>
+				<div>
+					<label for="">Mask:</label>
+					<div class="input-field">
+						<input class="inputUsuario ip_address" ng-model='Switch.mask'
+						class="validate" required="{{ckbSwitch}}"
+						pattern="^([0-9]{1,3}\.){3}[0-9]{1,3}$"
+						ng-disabled="!ckbSwitch"
+						aria-required="{{ckbSwitch}}"
+						> 
+					</div>
+				</div>
+				<div></div><div></div>
+			</div>
+		</div>
+		<div id="botoneraAgregarInventario">
+			<button id="btnalerta" class="btn waves-effect green darken-3" type="submit">
+				Agregar
+			</button>
+		</div>
+	</form>
+</div>
+
+<script>
+$( document ).ready(function() {
+	$("#checkboxUsuario").click(function(event) {
+		if($("#checkboxUsuario").is(':checked')) {  
+			$('#selectUsuario').removeAttr('disabled');
+			$('#selectUsuario').selectpicker('refresh');
+		} else {  
+			$('#selectUsuario').attr('disabled',true);
+			$('#selectUsuario').selectpicker('refresh'); 
+		} 
+	});
+
+	(function(g){"function"===typeof define&&define.amd?define(["jquery"],g):g(window.jQuery||window.Zepto)})(function(g){var y=function(a,f,d){var k=this,x;a=g(a);f="function"===typeof f?f(a.val(),void 0,a,d):f;k.init=function(){d=d||{};k.byPassKeys=[9,16,17,18,36,37,38,39,40,91];k.translation={0:{pattern:/\d/},9:{pattern:/\d/,optional:!0},"#":{pattern:/\d/,recursive:!0},A:{pattern:/[a-zA-Z0-9]/},S:{pattern:/[a-zA-Z]/}};k.translation=g.extend({},k.translation,d.translation);k=g.extend(!0,{},k,d);a.each(function(){!1!==
+		d.maxlength&&a.attr("maxlength",f.length);d.placeholder&&a.attr("placeholder",d.placeholder);a.attr("autocomplete","off");c.destroyEvents();c.events();var b=c.getCaret();c.val(c.getMasked());c.setCaret(b+c.getMaskCharactersBeforeCount(b,!0))})};var c={getCaret:function(){var b;b=0;var e=a.get(0),c=document.selection,e=e.selectionStart;if(c&&!~navigator.appVersion.indexOf("MSIE 10"))b=c.createRange(),b.moveStart("character",a.is("input")?-a.val().length:-a.text().length),b=b.text.length;else if(e||
+		"0"===e)b=e;return b},setCaret:function(b){if(a.is(":focus")){var e;e=a.get(0);e.setSelectionRange?e.setSelectionRange(b,b):e.createTextRange&&(e=e.createTextRange(),e.collapse(!0),e.moveEnd("character",b),e.moveStart("character",b),e.select())}},events:function(){a.on("keydown.mask",function(){x=c.val()});a.on("keyup.mask",c.behaviour);a.on("paste.mask drop.mask",function(){setTimeout(function(){a.keydown().keyup()},100)});a.on("change.mask",function(){a.data("changeCalled",!0)});a.on("blur.mask",
+		function(b){b=g(b.target);b.prop("defaultValue")!==b.val()&&(b.prop("defaultValue",b.val()),b.data("changeCalled")||b.trigger("change"));b.data("changeCalled",!1)});a.on("focusout.mask",function(){d.clearIfNotMatch&&c.val().length<f.length&&c.val("")})},destroyEvents:function(){a.off("keydown.mask keyup.mask paste.mask drop.mask change.mask blur.mask focusout.mask").removeData("changeCalled")},val:function(b){var e=a.is("input");return 0<arguments.length?e?a.val(b):a.text(b):e?a.val():a.text()},getMaskCharactersBeforeCount:function(b,
+		e){for(var a=0,c=0,d=f.length;c<d&&c<b;c++)k.translation[f.charAt(c)]||(b=e?b+1:b,a++);return a},determineCaretPos:function(b,a,d,h){return k.translation[f.charAt(Math.min(b-1,f.length-1))]?Math.min(b+d-a-h,d):c.determineCaretPos(b+1,a,d,h)},behaviour:function(b){b=b||window.event;var a=b.keyCode||b.which;if(-1===g.inArray(a,k.byPassKeys)){var d=c.getCaret(),f=c.val(),n=f.length,l=d<n,p=c.getMasked(),m=p.length,q=c.getMaskCharactersBeforeCount(m-1)-c.getMaskCharactersBeforeCount(n-1);p!==f&&c.val(p);
+			!l||65===a&&b.ctrlKey||(8!==a&&46!==a&&(d=c.determineCaretPos(d,n,m,q)),c.setCaret(d));return c.callbacks(b)}},getMasked:function(b){var a=[],g=c.val(),h=0,n=f.length,l=0,p=g.length,m=1,q="push",s=-1,r,u;d.reverse?(q="unshift",m=-1,r=0,h=n-1,l=p-1,u=function(){return-1<h&&-1<l}):(r=n-1,u=function(){return h<n&&l<p});for(;u();){var v=f.charAt(h),w=g.charAt(l),t=k.translation[v];if(t)w.match(t.pattern)?(a[q](w),t.recursive&&(-1===s?s=h:h===r&&(h=s-m),r===s&&(h-=m)),h+=m):t.optional&&(h+=m,l-=m),l+=
+				m;else{if(!b)a[q](v);w===v&&(l+=m);h+=m}}b=f.charAt(r);n!==p+1||k.translation[b]||a.push(b);return a.join("")},callbacks:function(b){var e=c.val(),g=c.val()!==x;if(!0===g&&"function"===typeof d.onChange)d.onChange(e,b,a,d);if(!0===g&&"function"===typeof d.onKeyPress)d.onKeyPress(e,b,a,d);if("function"===typeof d.onComplete&&e.length===f.length)d.onComplete(e,b,a,d)}};k.remove=function(){var a=c.getCaret(),d=c.getMaskCharactersBeforeCount(a);c.destroyEvents();c.val(k.getCleanVal()).removeAttr("maxlength");
+				c.setCaret(a-d)};k.getCleanVal=function(){return c.getMasked(!0)};k.init()};g.fn.mask=function(a,f){this.unmask();return this.each(function(){g(this).data("mask",new y(this,a,f))})};g.fn.unmask=function(){return this.each(function(){try{g(this).data("mask").remove()}catch(a){}})};g.fn.cleanVal=function(){return g(this).data("mask").getCleanVal()};g("*[data-mask]").each(function(){var a=g(this),f={};"true"===a.attr("data-mask-reverse")&&(f.reverse=!0);"false"===a.attr("data-mask-maxlength")&&(f.maxlength=
+					!1);"true"===a.attr("data-mask-clearifnotmatch")&&(f.clearIfNotMatch=!0);a.mask(a.attr("data-mask"),f)})});
+
+$('.ip_address').mask('099.099.099.099');
+var macAddress = $("#macAddress");
+function formatMAC(e) {
+	var r = /([a-f0-9]{2})([a-f0-9]{2})/i,
+	str = e.target.value.replace(/[^a-f0-9]/ig, "");
+	while (r.test(str)) {
+		str = str.replace(r, '$1' + ':' + '$2');
+	}
+	e.target.value = str.slice(0, 17);
+};
+macAddress.on("keyup", formatMAC);
+});
+</script>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>SSIIT Sistema para el Soporte a la Infraestructura de Informática y Telecomunicaciones</title>
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+	<link rel="stylesheet" href="assets/css/materialize.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css"> -->
+	<!-- <link rel="stylesheet" href="assets/css/ghpages-materialize.css"> -->
+	<link rel="stylesheet" href="assets/css/font-awesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="assets/css/bootstrap.min.css">  
+	<link rel="stylesheet" href="assets/css/style.min.css">
+	<link rel="stylesheet" href="assets/css/index.css">
+	<link rel="stylesheet" href="assets/css/footer.css">
+	<link rel="stylesheet" href="assets/css/usuario.css">
+	<link rel="stylesheet" href="assets/css/login.css">
+	<link rel="stylesheet" href="assets/css/solicitudes.css">
+	<link rel="stylesheet" type="text/css" href="assets/css/inventario.css">
+	<link rel="stylesheet" href="assets/css/administracion.css">
+	<link rel="stylesheet" href="views/soporte/solicitudes/versolicitud.css">
+	
+
+	<link rel="shortcut icon" href="assets/images/logo.ico">
+	<!-- <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css"> -->
+	<link rel="stylesheet" href="node_modules/angular-bootstrap-datetimepicker/src/css/datetimepicker.css"/>
+	<!-- Start WOWSlider.com HEAD section -->
+	<link rel="stylesheet" type="text/css" href="engine1/style.css" />
+	<script type="text/javascript" src="engine1/jquery.js"></script>
+	<!-- End WOWSlider.com HEAD section -->
+	<link rel="stylesheet" href="assets/css/boostrapSelect.css">
+	<link rel="stylesheet" href="components/bootstrap-daterangepicker/daterangepicker.css"/>
+
+	
+</head>
+<body ng-app="Client" ng-controller="MainCtrl">
+	<div  id="contenedorMargen">
+		<div class="hidden-print content" id="headerContent">
+			<a href="#/inicio"><img id="logoImta" src="assets/images/bannerImta.png"></a>
+			<img id="logoSoporte" src="assets/images/logoSoporte.png" height="51" width="110" alt="">
+			<nav id="navMenu">
+				<div ng-if="isAuthenticated()" ng-include="'views/include/header.html'"></div>
+			</nav>
+		</div>
+		<div  class="hidden-print content" id="barraFechaHora">
+			<div id="fecha"></div>
+			<div  id="hora"></div>
+		</div>
+		<div class="hidden-print content" id="espacioHeader"></div>
+		
+		<div id="seccionesContent" ng-view >
+
+		</div>
+		<div class="hidden-print content" id="espacioFooter"></div>
+		<div class="hidden-print content" id="footerContent">
+			<div id="usuarioFooter" >
+				<div ng-if="isAuthenticated()" ng-include="'views/include/footerUsuario.html'"></div>
+			</div>
+			<div id="direccionFooter">Paseo Cuauhnáhuac 8532, Col. Progreso, C.P. 62550, Jiutepec, Mor. Tel.: +52 (777) 329 3600.</div>
+			<div id="salirFooter" >
+				<div ng-if="isAuthenticated()" ng-include="'views/include/footerDesconexion.html'"></div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- COMPONENTES DE ANGULAR -->
+	<script src="components/angular.min.js"></script>
+	<script src="components/angular-resource.min.js"></script>
+	<script src="components/angular-route.min.js"></script>
+	<script src="satellizer/satellizer.min.js"></script>
+	<script src="components/angular-moment/angular-moment.min.js"></script>
+	<script src="components/moment/moment.js"></script>
+	<script type="text/javascript" src="node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.js"></script>
+	<script type="text/javascript" src="node_modules/angular-bootstrap-datetimepicker/src/js/datetimepicker.templates.js"></script>
+	<script src="components/bootstrap-daterangepicker/daterangepicker.js"></script>
+	<script src="components/angular-daterangepicker/js/angular-daterangepicker.js"></script>
+	
+	<!-- ROUTER Y CONTROLLERS PRINCIPALES -->
+	<script src="scripts/router.js"></script>
+	<script src="scripts/controllers/inicio.js"></script>
+	<script src="scripts/controllers/login.js"></script>
+	<script src="scripts/controllers/soporte.js"></script>
+	<script src="scripts/controllers/usuario.js"></script>
+	<script src="scripts/controllers/inventario.js"></script>
+	<script src="scripts/controllers/administracion.js"></script>
+
+	<!-- SERVICIOS -->
+	<script src="scripts/services/UsuarioService.js"></script>
+	<script src="scripts/services/SolicitudService.js"></script>
+	<script src="scripts/services/InventarioService.js"></script>
+	<script src="scripts/services/ServicioSolicitadoService.js"></script>
+	<script src="scripts/services/TecnicoService.js"></script>
+	<script src="scripts/services/TecnicoTurnoService.js"></script>
+	<script src="scripts/services/AreaService.js"></script>
+	<script src="scripts/services/ModeloEquipoService.js"></script>
+	<script src="scripts/services/UbicacionService.js"></script>
+	<script src="scripts/services/SwitchService.js"></script>
+	<script src="scripts/services/TipoReparacion.js"></script>
+	<script src="scripts/services/ClasificacionReparacion.js"></script>
+	<script src="scripts/services/SubclasificacionReparacion.js"></script>
+	<script src="scripts/services/NivelServicio.js"></script>
+
+
+	
+	<!-- CONTROLLERS DE SOPORTE -->
+	<script src="scripts/controllers/soporte/solicitudes.js"></script>
+	<script src="scripts/controllers/soporte/nuevaSolicitud.js"></script>
+	<script src="scripts/controllers/soporte/editarAsignada.js"></script>
+	<script src="scripts/controllers/soporte/editarProceso.js"></script>
+	<script src="scripts/controllers/soporte/versolicitud.js"></script>
+
+	<!-- CONTROLLERS DE INVENTARIO -->
+	<script src="scripts/controllers/inventario/listaInventario.js"></script>
+	<script src="scripts/controllers/inventario/agregarInventario.js"></script>
+	<script src="scripts/controllers/inventario/listaSubcoordinaciones.js"></script>
+	<script src="scripts/controllers/inventario/verInventario.js"></script>
+
+	<!-- CONTROLLERS DE ADMINISTRACION -->
+	<script src="scripts/controllers/administracion/usuarios.js"></script>
+	<script src="scripts/controllers/administracion/empresas.js"></script>
+	<script src="scripts/controllers/administracion/catEquipos.js"></script>
+	<script src="scripts/controllers/administracion/ubicaciones.js"></script>
+	<script src="scripts/controllers/administracion/resguardantes.js"></script>
+	<script src="scripts/controllers/administracion/antivirus.js"></script>
+	<script src="scripts/controllers/administracion/sistemasOperativos.js"></script>
+
+	<!-- COMPONENTES PARA EXPORTAR-->
+	<script src="components/exportExcel/alasql.min.js"></script>
+	<script src="components/exportExcel/xlsx.core.min.js"></script>
+
+	<!-- COMPONENTES DE ESTILOS Y JQUERY -->
+	<script src="http://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.10.0.js" type="text/javascript"></script>
+	<script src="assets/js/jquery-2.1.0.min.js"></script>
+	<script src="assets/js/animations.js"></script>
+	<script src="assets/js/materialize.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.6/ngStorage.min.js"></script>
+	<!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script> -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+	<script src="assets/js/boostrapSelect.js"></script>
+	 <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-daterangepicker/2.1.13/daterangepicker.min.js"></script> -->
+	<script src="components/bootstrap-daterangepicker/daterangepicker2.js"></script>	
+	<!-- // <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script> -->
+    <!-- // <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script> -->
+
+
+<script>
+	$( document ).ready(function() {
+		var d=new Date();
+		var dia=new Array(7);
+		dia[0]="Domingo";dia[1]="Lunes";dia[2]="Martes";dia[3]="Miercoles";dia[4]="Jueves";dia[5]="Viernes";dia[6]="Sabado";
+		var mes=new Array(12);
+		mes[0]="Enero";mes[1]="Febrero";mes[2]="Marzo";mes[3]="Abril";mes[4]="Mayo";mes[5]="Junio";mes[6]="Julio";
+		mes[7]="Agosto";mes[8]="Septiembre";mes[9]="Octubre";mes[10]="Noviembre";mes[11]="Diciembre";
+		$("#fecha").html(dia[d.getDay()]+", "+d.getDate()+" "+mes[d.getMonth()]+" "+d.getFullYear());
+
+		display_ct();
+
+		window.setInterval(function(){
+			display_ct();
+		}, 1000);
+
+		function display_ct() {
+			var hora = new Date();
+			var hora2 = formatAMPM(hora);
+			$("#hora").html(hora2);
+		}
+
+		function formatAMPM(date) {
+			var hours = date.getHours();
+			var minutes = date.getMinutes();
+			var seconds = date.getSeconds();
+			var ampm = hours >= 12 ? 'PM' : 'AM';
+			hours = hours % 12;
+			  hours = hours ? hours : 12; // the hour '0' should be '12'
+			  hours = hours < 10 ? '0'+hours : hours;
+			  minutes = minutes < 10 ? '0'+minutes : minutes;
+			  seconds = seconds < 10 ? '0'+seconds : seconds;
+			  var strTime = hours + ':' + minutes + ':' + seconds + ' ' + ampm;
+			  return strTime;
+			}
+
+		});	
+</script>
+</body>
+</html>

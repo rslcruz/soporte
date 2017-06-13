@@ -1,0 +1,67 @@
+<div class="card-panel contenedor z-depth-3" style="margin-top:20px;">
+	<h4 class="center-align tituloUsuario">{{title}}</h4>
+	<form ng-submit="saveUsuario()">
+		<div class="input-field">
+			<input class="inputUsuario" placeholder="Nombre" type="text" ng-model="Usuario.nombre" class="validate" required="" aria-required="true">
+		</div>
+		<div class="input-field">
+			<input class="inputUsuario" placeholder="Empresa" type="text" ng-model="Usuario.empresa" class="validate" required="" aria-required="true">
+		</div>
+		<div class="input-field col s12">
+		    <select name="selectPuesto" class="selectUsuario" ng-model="Usuario.puesto" >
+		      <option value="" disabled selected>Selecciona el puesto</option>
+		      <option value="Personal de soporte técnico">Personal de soporte técnico</option>
+		      <option value="Personal de soporte para red y/o cableado">Personal de soporte para red y/o cableado</option>
+		      <option value="Personal de soporte mantenimiento preventivo">Personal de soporte mantenimiento preventivo</option>
+		      <option value="Personal de soporte para telefonía">Personal de soporte para telefonía</option>
+		      <option value="Auxiliar administrativo">Auxiliar administrativo</option>
+		      <option value="Administrador de sistema">Administrador de sistema</option>
+		    </select>
+		</div>
+		<div class="input-field">
+			<input class="inputUsuario" placeholder="Correo Electrónico" type="email" ng-model="Usuario.correo" class="validate" required="" aria-required="true">
+		</div>
+		<div class="input-field col s12">
+		    <select class="selectUsuario" ng-model="Usuario.perfil_id">
+		      <option value="" disabled selected>Selecciona el perfil</option>
+		      <option ng-repeat="option in perfiles" value="{{option.id_perfil}}">{{option.perfil}}</option>
+			</select>
+		</div>
+		<div class="input-field">
+			<input class="inputUsuario" placeholder="Nombre de Usuario" type="text" ng-model="Usuario.nombre_usuario" class="validate" required="" aria-required="true">
+		</div>
+		<div class="input-field">
+			<input class="inputUsuario" placeholder="Contraseña" type="password" ng-model="Usuario.password" class="validate" required="" aria-required="true">
+		</div>
+		<div class="input-field">
+			<input class="inputUsuario" placeholder="Confirmar contraseña" type="password" ng-model="Usuario.confirmar_password" class="validate" required="" aria-required="true">
+		</div>
+		<button class="btn waves-effect blue darken-3" type="submit">
+				{{button}}
+		</button>
+	</form>
+	
+</div>
+
+<script type="text/javascript" src="assets/js/materialize.min.js"></script>
+
+
+  <script>
+     $(document).ready(function() {
+
+  
+
+        //Codigo para cargar y actualizar el select con los datos traidos de la BD
+     	// $('select').material_select();
+     	// $('.caret').html("");
+      //   setTimeout(function(){ actualizarSelect(); }, 1000);
+      //   function actualizarSelect(){
+      //   	$('select').material_select();
+      //   	$('.s12 > span:first-child').hide();
+      //   	$('.caret').html("");
+      //   }
+
+    });
+  </script>
+
+ 

@@ -1,0 +1,591 @@
+  <div ng-controller="verSolicitudCtrl">
+  <div class="row" >
+ 
+<table>
+    <tr>
+          <td  width="100"><img src="assets/images/imta_report.png" width="100" height="70" /> 
+          </td>
+
+
+          <td width="824" >
+            <h3 class="oscuro18_center_normal" style="margin: -10px;">INSTITUTO MEXICANO DE TECNOLOGÍA DEL AGUA</h3>
+            <h4 class="oscuro15_center_bold" style="height:5px;">SUBDIRECCION DE INFORMÁTICA Y TELECOMUNICACIONES</h4>
+            <h4 class="oscuro15_center_bold" style="height:5px;">SOLICITUD DE SERVICIO DE TIC</h4>
+
+          </td>
+          <td width="100">          
+
+            <img src="assets/images/semarnart_report.png" width="145" height="70" />
+          </td>
+    </tr>
+</table>
+<hr class="linea" style="margin-top:0px">
+
+<table>
+  <tr >
+      <td class="letra" width="140" > 
+        N° DE SOLICITUD:
+     </td>
+     <!-- class="oscuro18_center_bold" -->
+      <td  class="numsolicitud" width="100" style="height:5px;">
+        {{Solicitud.id_solicitud_soporte}}        
+      </td>
+      <td  width="350">
+               
+      </td>
+      <td class="derecha" width="224">
+       Fecha y hora de la solicitud:       
+      </td>
+      <td width="210">
+        &nbsp; {{dateFormat(Solicitud.fecha_apertura)}}     
+      </td>
+  </tr>
+</table>
+
+<table>
+
+<tr>
+  
+<td width="400" class="letra2" bgcolor="#E8E8E8">DATOS DEL REGUARDANTE:</td>
+<td width="624" class="letra" bgcolor="#E8E8E8"></td>
+
+
+</tr>
+
+</table>
+
+
+<table>
+  <tr>
+    <td class="letra13obi" width="900">Resguardante :<span class="linea_abajo_1px">{{ Solicitud.inventario.resguardante.nombre + " " + Solicitud.inventario.resguardante.apellido_paterno + " " + Solicitud.inventario.resguardante.apellido_materno }} </span></td>
+
+    <td class="letra13obd" width="124" > EXT: <span class="linea_abajo_1px">{{Solicitud.inventario.resguardante.extension}}</span></td>
+
+  </tr>
+  <tr>
+    <td class="letra13obi" width="900" >Coordinación / Subcoordinacíon: <span class="linea_abajo_1px">{{
+    Solicitud.inventario.resguardante.subarea.subarea + " / " + 
+    Solicitud.inventario.resguardante.subarea.area.area}}
+    </span></td>
+  </tr>
+  <tr>
+   
+  </tr>
+
+  </table>
+<!-- {{resguardante(Solicitud.usuario_atendido)}} -->
+
+  <table ng-switch on="vistaResguardante" >
+    <span hidden="hidden">{{resguardante(Solicitud.usuario_atendido)}}</span>
+     <tr ng-switch-when="reguardanteStore">
+       <td class="letra13obi" width="1024" >En caso de que el nombre del resguardante no sea el solicitante del servicio, favor de describir con atención a :<span class="linea_abajo_1px">{{Solicitud.usuario_atendido}}
+ </span></td>
+    </tr>
+
+     <tr ng-switch-when="sinResguardante">
+       <td class="letra13obi" width="1024" >En caso de que el nombre del resguardante no sea el solicitante del servicio, favor de describir con atención a :<span class="linea_abajo_1px"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+       
+ </span></td>
+    </tr>
+
+    </table>
+
+
+    <table>
+<tr>
+  
+<td width="600" class="letra2" bgcolor="#E8E8E8">Datos del equipo de cómputo / Telecomunicaciones / Telefonia</td>
+<td width="524" class="letra" bgcolor="#E8E8E8"></td>
+
+</tr>
+</table>
+
+
+<table>
+  
+<tr>
+  <td width="20"></td>  
+  <td class="letra13obc" width="150" style="height:20px;">Núm. de Inventario:</td>
+  <td class="oscuro12_left_normal numinventario" width="220">{{Solicitud.inventario.id_inventario}}</td>
+  <td class="letra13obd" width="250">Descripcion del equipo:</td>
+   <td class="oscuro12_left_normal" width="474" ><span>&nbsp;{{Solicitud.inventario.descripcion}}</span></td>
+
+
+</tr>
+
+
+
+</table>
+
+
+<table>
+  <tr style="height:5px"><td></td></tr>
+<tr >
+  <td width="20"></td>  
+  <td class="letra13obc" width="30" style="height:20px;">Memoria:</td>
+  <td class="oscuro12_left_normal" width="200"></td>
+   
+
+   <td class="letra13obd" width="90"> Disco duro:</td>
+   <td class="oscuro12_left_normal" width="100"></td>
+     <td class="letra13obd " width="133">S.O:</td>
+     <td class="oscuro12_left_normal" width="447" ><span>&nbsp;</span></td>
+</tr>
+</table>
+
+    <table>
+     <tr style="height:5px"><td></td></tr>
+<tr>  
+<td width="600" class="letra2" bgcolor="#E8E8E8">DATOS DE LA SOLICITUD DE SERVICIO</td>
+<td width="524" class="letra" bgcolor="#E8E8E8"></td>
+
+</tr>
+</table>
+
+
+
+
+<table>
+    <tr>
+      <td class="letra13obc" width="130">Servicio Solicitado:</td>
+    <td  width="330"><div class="oscuro12_left_normal" style="height: 25px;">{{Solicitud.servicio_solicitado.servicio_solicitado}}</div> </td>
+    <td class="letra13obd" width="130">Breve descripción del servicio solicitado: </td>
+
+    <td  width="434"> <div class="oscuro12_left_normal" style="height: 40px;">&nbsp;{{Solicitud.falla_reportada}}</div> </td>
+
+   </tr>
+
+</table>
+
+
+<table>
+ <tr style="height:2px"><td></td></tr> 
+  <tr>
+      <td class="letra13obc" width="124">Diagnostico/Solución:</td>
+      <td class="letra13obc" width="900"><div style="height: 75px;">
+          <textarea class=" oscuro12_left_normal" rows="4" style="height:100%" >{{Solicitud.diagnostico}}
+      </textarea></div></td>
+
+  </tr>
+</table>
+
+<table style="margin-top: -23px;">
+ <tr  style="height:5px"><td></td></tr>
+<tr>
+<td  class=" borde1" width="512" >
+
+<table><tr><td class="letra2" bgcolor="#E8E8E8">Datos para ser llenados por la Mesa de servicio</td></tr></table>
+
+
+
+
+  <table>
+<tr>
+
+
+
+  <tr>
+      <td class="letra13obi" width="25%">Clasificación del servicio: </td>
+      <td class="oscuro12_left_normal" width="74%"></td>
+      <td width="1%">&nbsp;</td>
+
+
+  </tr>
+  <tr style="height:3px"><td></td></tr>
+  <tr>
+    
+      <td class="letra13obi " width="25%">Técnico que atiende: </td>
+      <td class="oscuro12_left_normal" width="74%">{{Solicitud.tecnico.nombre}}</td>
+      <td width="1%">&nbsp;</td>
+
+
+  </tr>
+
+
+    <tr style="height:3px"><td></td></tr>
+  <tr>
+    
+      <td class="letra13obi " width="25%" >Observaciones: </td>
+      <td  width="74%" style="height:25px">
+        <textarea class=" oscuro12_left_normal" rows="3" style="height:100%" >{{Solicitud.observaciones}}</textarea></td>
+      <td width="1%">&nbsp;</td>
+
+
+  </tr>
+
+
+  <tr>
+    <td class="letra13obi" width="25%">REFACCIONES</td>
+      <td class="letra13obd " width="74">REEMPLAZO&nbsp;&nbsp;&nbsp;&nbsp;</td>
+       <td width="1%">&nbsp;</td>
+
+  </tr>
+
+  
+
+  
+    <!-- <tr class="prueba">
+   
+     
+<table width="512px">
+  <tr>
+    <td class="prueba" width="20%">1</td>
+    <td class="prueba2" width="49%">2</td>
+    <td class="prueba" width="15%">3</td>
+    <td class="prueba3" width="15%">4</td>
+    <td class="prueba" width="1%">&nbsp;</td>
+
+
+  </tr>
+
+
+</table>
+
+
+
+
+
+   
+    </tr> -->
+
+
+  
+
+
+</table>
+<table>
+  
+  <tr>
+ <!-- style="height:50px" -->    
+    <td class=" oscuro12_left_normal" width="20%"><center>CANTIDAD </center></td>
+      <td class="oscuro12_left_normal" width="59%"><center>DESCRIPCIÓN</center></td>
+        <td class=" oscuro12_left_normal" width="10%"><center>SI</center></td>
+         <td class=" oscuro12_left_normal" width="10%"><center>NO </center></td>
+        <td  width="1%">&nbsp;</td>
+      
+    
+  </tr>
+    <tr>
+ <!-- style="height:50px" -->    
+    <td class=" oscuro12_left_normal" width="20%"></td>
+      <td class=" oscuro12_left_normal" width="59%"></td>
+        <td class=" oscuro12_left_normal" width="10%"><center><input type="radio" disabled="disabled"></center></td>
+         <td class=" oscuro12_left_normal" width="10%"><center><input type="radio" disabled="disabled"></center></td>
+        <td class="" width="1%">&nbsp;</td>
+         <tr>
+ <!-- style="height:50px" -->    
+    <td class=" oscuro12_left_normal" width="20%"></td>
+      <td class=" oscuro12_left_normal" width="59%"></td>
+        <td class=" oscuro12_left_normal" width="10%"><center><input type="radio" disabled="disabled"></center></td>
+         <td class=" oscuro12_left_normal" width="10%"><center><input type="radio" disabled="disabled"></center></td>
+        <td class="" width="1%">&nbsp;</td>
+      
+    
+  </tr>
+
+      
+    
+  </tr>
+</table>
+
+  <table>
+    
+    <tr>
+      <td class="letra13obi " width="50%">Destino de las refacciones sustituidas: </td>
+      <td class=" linea_abajo_1px" width="50%"></td>
+    </tr>
+  </table>
+
+
+</td>
+
+
+
+<td class="borde_2" width="512"> 
+<table><tr><td class="letra2" bgcolor="#E8E8E8">Datos para ser llenados por el usuario</td></tr></table>
+
+<table>
+<tr>
+
+
+<tr>
+   <td class=" letra13obi" width="70">Fecha y hora en la que se presentó el técnico: </td>
+  <td class=" oscuro12_left_normal"  width="20"><center>{{dateFormat2(Solicitud.fecha_atencion)}}</center></td>
+  <td class=" oscuro12_left_normal" width="10"><center>{{dateFormat3(Solicitud.fecha_atencion)}}</center></td>
+</tr>
+
+<tr style="height:3px"><td></td></tr>
+
+<tr>
+   <td class=" letra13obi" width="70">Fecha y hora de conclusión del servicio </td>
+  <td class=" oscuro12_left_normal"  width="20"><center>{{dateFormat2(Solicitud.cierre)}}</center></td>
+  <td class=" oscuro12_left_normal" width="10"><center>{{dateFormat3(Solicitud.fecha_cierre)}}</center></td>
+</tr>
+
+<tr> <td width="70%" class="letra2" bgcolor="#E8E8E8">Evaluación del servicio:</td>
+    <td  width="20%" bgcolor="#E8E8E8"></td>
+    <td  width="10%" bgcolor="#E8E8E8"></td>
+
+    </tr>
+
+     <tr style="height:3px"><td></td></tr>
+
+</table>
+
+<table>
+  
+
+  <tr>
+    
+
+    <td class="letra12obc" width="50%"><center>Satisfacción con la oportunidad del servicio</center></td>
+    <td class="letra12obc" width="50%"><center>Satisfacción con la solución implementada</center></td>
+  </tr>
+
+   <tr>
+    
+
+    <!-- <td class="prueba" width="50%"><center> Muy bueno&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="radio"></center></td> -->
+
+    <td>
+      
+    <table>
+      
+      <tr>
+        
+        <td width="10%" ></td>
+        <td width="20%" >Muy bueno</td>
+        <td width="20%" ><input type="radio" disabled="disabled"></td>
+      </tr>
+    </table>
+
+
+
+    </td>
+<td>
+      
+    <table>
+      
+      <tr>
+        
+        <td width="10%" ></td>
+        <td width="20%" >Muy Buena</td>
+        <td width="20%" ><input type="radio" disabled="disabled"></td>
+      </tr>
+    </table>
+
+
+
+    </td>
+  </tr>
+
+ <tr>
+    
+
+    <td>
+      
+    <table>
+      
+      <tr>
+        
+        <td width="10%" ></td>
+        <td width="20%" >Bueno</td>
+        <td width="20%" ><input type="radio" disabled="disabled"></td>
+      </tr>
+    </table>
+
+
+
+    </td>
+<td>
+      
+    <table>
+      
+      <tr>
+        
+        <td width="10%" ></td>
+        <td width="20%" >Buena</td>
+        <td width="20%" ><input type="radio" disabled="disabled"></td>
+      </tr>
+    </table>
+
+
+
+    </td>
+  </tr>
+   <tr>
+    
+
+    <td>
+      
+    <table>
+      
+      <tr>
+        
+        <td width="10%" ></td>
+        <td width="20%" >Regular</td>
+        <td width="20%" ><input type="radio" disabled="disabled"></td>
+      </tr>
+    </table>
+
+
+
+    </td>
+<td>
+      
+    <table>
+      
+      <tr>
+        
+        <td width="10%" ></td>
+        <td width="20%" >Regular</td>
+        <td width="20%" ><input type="radio" disabled="disabled"></td>
+      </tr>
+    </table>
+
+
+
+    </td>
+  </tr>
+
+
+
+ <tr>
+    
+
+    <td>
+      
+    <table>
+      
+      <tr>
+        
+        <td width="10%"></td>
+        <td width="20%" >Malo</td>
+        <td width="20%" ><input type="radio" disabled="disabled"></td>
+      </tr>
+    </table>
+
+
+
+    </td>
+<td>
+      
+    <table>
+      
+      <tr>
+        
+        <td width="10%" ></td>
+        <td width="20%" >Mala</td>
+        <td width="20%" ><input type="radio" disabled="disabled"></td>
+      </tr>
+    </table>
+
+
+
+    </td>
+  </tr>
+
+
+
+ <tr>
+    
+
+    <td>
+      
+    <table>
+      
+      <tr>
+        
+        <td width="10%" ></td>
+        <td width="20%" >Muy malo</td>
+        <td width="20%" ><input type="radio" disabled="disabled"></td>
+      </tr>
+    </table>
+
+
+
+    </td>
+<td>
+      
+    <table>
+      
+      <tr>
+        
+        <td width="10%" ></td>
+        <td width="20%" >Muy mala</td>
+        <td width="20%" ><input type="radio" disabled="disabled"></td>
+      </tr>
+    </table>
+
+<tr  style="height:22px"></tr>
+  
+</tr>
+
+    </td>
+  </tr>
+
+
+
+
+
+
+
+
+
+</table>
+</td>
+
+
+
+</tr>
+
+
+<tr>
+  <td width="512px" class="letra13obc"> <center>FIRMA DEL TÉCNICO ESPECIALIZADO</center></td>
+  <td width="512px" class="letra13obc"><CENTER>FIRMA DEL USUARIO</CENTER></td> </tr>
+  <tr style="height:40px">&nbsp;</tr>
+
+  <tr> <td width="512px"> <!-- <center>Oscar Arias Arteaga</center> -->
+      
+      <!-- borrar -->
+      <table>
+      <tr>
+      <td  width="20%"></td>
+      <td class="letra13obc borde_firma" width="60%"><center>{{Solicitud.tecnico.nombre}}</center></td>
+      <td  width="20%"></td>
+     <!-- borrar -->
+     </tr>
+</table>
+
+</td>
+  <td width="512px" class="letra13obc">
+      <table>
+      <tr>
+      <td  width="20%"></td>
+      <td class="letra13obc borde_firma" width="60%"><center>{{ Solicitud.inventario.resguardante.nombre + " " + Solicitud.inventario.resguardante.apellido_paterno + " " + Solicitud.inventario.resguardante.apellido_materno}}</center></td>
+      <td  width="20%"></td>
+     <!-- borrar -->
+     </tr>
+</table>
+  </td>
+
+
+</tr>
+
+</table style="margin-top: 0px;">
+</div> <!-- div principal -->
+      <div class="hidden-print content">
+      <center>
+
+      <button type="button" class="btn btn-primary btn-xs" ng-click="imprimir()">Imprimir
+      <i class="medium material-icons">print</i>
+ 
+
+        </button>
+
+
+      </center>
+      
+      </div>
+
+      </div>

@@ -1,0 +1,382 @@
+<div id="administrarEquipoContent" ng-controller="AdministrarEquiposCtrl">
+	<div id="includeMenucontent">
+		<div ng-include="'views/administracion/menuAdministracion.html'" onload="includeCargado()"></div>
+	</div>
+	<div ng-switch on="vistaAdministrarEquipo">
+		<div id="clasificacionContent" ng-switch-when="clasificacion">
+			<h4 class="tituloInventario">Clasificación de Tipos de Equipo:</h4>
+			<table class="table table-bordered table-striped tableAdmCatEquipos">
+				<thead>
+					<tr>
+						<td class="tdCenter"><a>N°</a></td>
+						<td class="tdCenter">
+							<a href="" ng-click="sortType = 'clasificacion_tipo_equipo'; sortReverse = !sortReverse">
+								Clasificación 
+							</a>
+						</td>
+						<td class="tdCenter"><a>Ver tipos</a></td>
+						<td class="tdCenter"><a>Acciones</a></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="clasificacion in clasificacionesTipoEquipo | orderBy:sortType:sortReverse | filter:search">
+						<td class="tdCenter">{{$index + 1}}</td>
+						<td class="tdDatos">{{ clasificacion.clasificacion_tipo_equipo }}</td>
+						<td>
+							<div class="card-action" style="text-align: center;">
+								<a href="" ng-click="verTipoEquipo(clasificacion.id_clasificacion_tipo_equipo,clasificacion.clasificacion_tipo_equipo)"><i class="material-icons">search</i>
+								</a>
+							</div>
+						</td>
+						<td>
+							<div class="card-action" style="text-align: center;">
+								<a href=""
+								ng-click="editarTemplate(clasificacion.
+								id_clasificacion_tipo_equipo,clasificacion.clasificacion_tipo_equipo,'clasificación')"
+								data-toggle='modal' data-target="#myModalEditar">
+									<i class="material-icons">edit</i>
+								</a>
+								<a href="" 
+								ng-click="eliminarTemplate(clasificacion.id_clasificacion_tipo_equipo,clasificacion.clasificacion_tipo_equipo,'clasificación')" 
+								data-toggle="modal" data-target="#myModalEliminar">
+									<i class="material-icons">delete</i>
+								</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+				<a class="btn-floating btn-large waves-effect waves-light green" data-toggle="modal" data-target="#myModal" ng-click="NuevaClasificacion.clasificacion_tipo_equipo=''">
+					<i class="large material-icons">add</i>
+				</a>
+			</div>
+			<div id="myModal" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<form ng-submit="agregarClasificacion()">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Agregar Clasificación</h4>
+							</div>
+							<div class="modal-body">
+								<label for="">Clasificación:</label>
+								<input class="inputUsuario" 
+								ng-model='NuevaClasificacion.clasificacion_tipo_equipo' 
+								class="validate" required="" aria-required="true" >
+							</div>
+							<div class="modal-footer">
+								<div id="botoneraModalClasificacion">
+									<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+									<button type="submit" class="btn green">Agregar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="tipoContent" ng-switch-when="tipo">
+			<h4 class="tituloInventario">{{tituloClasificacion + " - Tipos de Equipo:"}}</h4>
+			<table class="table table-bordered table-striped tableAdmCatEquipos">
+				<a href="" ng-click="cambiarvista()">Ver clasificaciones</a>
+				<thead>
+					<tr>
+						<td class="tdCenter"><a>N°</a></td>
+						<td class="tdCenter">
+							<a href="" ng-click="sortType = 'tipo_equipo'; sortReverse = !sortReverse">
+								Tipo 
+							</a>
+						</td>
+						<td class="tdCenter"><a>Ver marcas</a></td>
+						<td class="tdCenter"><a>Acciones</a></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="tipo in tiposEquipo | orderBy:sortType:sortReverse | filter:search">
+						<td class="tdCenter">{{$index + 1}}</td>
+						<td class="tdDatos">{{ tipo.tipo_equipo }}</td>
+						<td>
+							<div class="card-action" style="text-align: center;">
+								<a href="" ng-click="verMarcaEquipo(tipo.id_tipo_equipo,tipo.tipo_equipo)">
+									<i class="material-icons">search</i>
+								</a>
+							</div>
+						</td>
+						<td>
+							<div class="card-action" style="text-align: center;">
+								<a href=""
+								ng-click="editarTemplate(tipo.id_tipo_equipo,tipo.tipo_equipo,'tipo')"
+								data-toggle='modal' data-target="#myModalEditar">
+									<i class="material-icons">edit</i>
+								</a>
+								<a href="" 
+								ng-click="eliminarTemplate(tipo.id_tipo_equipo,tipo.tipo_equipo,'tipo')" 
+								data-toggle="modal" data-target="#myModalEliminar">
+									<i class="material-icons">delete</i>
+								</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+				<a class="btn-floating btn-large waves-effect waves-light green" data-toggle="modal" data-target="#myModal2" ng-click="NuevoTipo.tipo_equipo=''">
+					<i class="large material-icons">add</i>
+				</a>
+			</div>
+			<div id="myModal2" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<form ng-submit="agregarTipo()">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Agregar Tipo de equipo</h4>
+							</div>
+							<div class="modal-body">
+								<label for="">Tipo de equipo:</label>
+								<input class="inputUsuario" 
+								ng-model='NuevoTipo.tipo_equipo' 
+								class="validate" required="" aria-required="true" >
+							</div>
+							<div class="modal-footer">
+								<div id="botoneraModalClasificacion">
+									<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+									<button type="submit" class="btn green">Agregar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="marcaContent" ng-switch-when="marca">
+			<h4 class="tituloInventario">
+				{{tituloClasificacion +" - "+ tituloTipo +" - Marcas de Equipo:"}}
+			</h4>
+			<table class="table table-bordered table-striped tableAdmCatEquipos">
+				<a href="" ng-click="cambiarvista2()">Ver tipos</a>
+				<thead>
+					<tr>
+						<td class="tdCenter"><a>N°</a></td>
+						<td class="tdCenter">
+							<a href="" ng-click="sortType = 'marca_equipo'; sortReverse = !sortReverse">
+								Marca 
+							</a>
+						</td>
+						<td class="tdCenter"><a>Ver modelos</a></td>
+						<td class="tdCenter"><a>Acciones</a></td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="marca in marcasEquipo | orderBy:sortType:sortReverse | filter:search">
+						<td class="tdCenter">{{$index + 1}}</td>
+						<td class="tdDatos">{{ marca.marca_equipo }}</td>
+						<td>
+							<div class="card-action" style="text-align: center;">
+								<a href="" ng-click="verModeloEquipo(marca.id_marca_equipo,marca.marca_equipo)">
+									<i class="material-icons">search</i>
+								</a>
+							</div>
+						</td>
+						<td>
+							<div class="card-action" style="text-align: center;">
+								<a href=""
+								ng-click="editarTemplate(marca.id_marca_equipo,marca.marca_equipo,'marca')"
+								data-toggle='modal' data-target="#myModalEditar">
+									<i class="material-icons">edit</i>
+								</a>
+								<a href="" 
+								ng-click="eliminarTemplate(marca.id_marca_equipo,marca.marca_equipo,'marca')" 
+								data-toggle="modal" data-target="#myModalEliminar">
+									<i class="material-icons">delete</i>
+								</a>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+				<a id="addMarca" class="btn-floating btn-large waves-effect waves-light green" data-toggle="modal" data-target="#myModal3" ng-click="NuevaMarca.marca_equipo='';NuevaMarca.ckbMarca=false">
+					<i class="large material-icons">add</i>
+				</a>
+			</div>
+			<div id="myModal3" class="modal fade" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<form ng-submit="agregarMarca()">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal">&times;</button>
+								<h4 class="modal-title">Agregar Marca de equipo</h4>
+							</div>
+							<div class="modal-body">
+								<div style="margin-bottom: 40px;">
+									<select id="selectMarca" class="selectpicker" data-dropup-auto="false" 
+									ng-model='NuevaMarca.id_marca_equipo' ng-disabled="NuevaMarca.ckbMarca" 
+									data-size="7">
+									<option value="" selected disabled>Selecciona una marca</option>
+									<option value="{{marca.id_marca_equipo}}" 
+									ng-repeat="marca in todasMarcasEquipo" 
+									on-finish-render="ngRepeatMarcaFinished">
+									{{marca.marca_equipo}}</option>
+								</select>
+							</div>
+							<input id="checkboxMarcaNueva" type="checkbox" value="" 
+							ng-model='NuevaMarca.ckbMarca' >
+							<label for="">Marca nueva:</label>
+							<input id="inpputMarcaEquipo" class="inputUsuario" 
+							ng-model='NuevaMarca.marca_equipo' ng-disabled="!NuevaMarca.ckbMarca"
+							class="validate" required="{{NuevaMarca.ckbMarca}}" 
+							aria-required="{{NuevaMarca.ckbMarca}}" >
+						</div>
+						<div class="modal-footer">
+							<div id="botoneraModalClasificacion">
+								<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn green">Agregar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="modeloContent" ng-switch-when="modelo">
+		<h4 class="tituloInventario">
+			{{tituloClasificacion +" - "+ tituloTipo + " - "+ tituloMarca +" - Modelos de Equipo:"}}
+		</h4>
+		<table class="table table-bordered table-striped tableAdmCatEquipos">
+			<a href="" ng-click="cambiarvista3()">Ver Marcas</a>
+			<thead>
+				<tr>
+					<td class="tdCenter"><a>N°</a></td>
+					<td class="tdCenter">
+						<a href="" ng-click="sortType = 'modelo_equipo'; sortReverse = !sortReverse">
+							Modelo 
+						</a>
+					</td>
+					<td class="tdCenter"><a>Acciones</a></td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="modelo in modelosEquipo | orderBy:sortType:sortReverse | filter:search">
+					<td class="tdCenter">{{$index + 1}}</td>
+					<td class="tdDatos">{{ modelo.modelo_equipo }}</td>
+					<td>
+						<div class="card-action" style="text-align: center;">
+							<a href=""
+							ng-click="editarTemplate(modelo.id_modelo_equipo,modelo.modelo_equipo,'modelo')"
+								data-toggle='modal' data-target="#myModalEditar">
+								<i class="material-icons">edit</i>
+							</a>
+							<a href="" 
+								ng-click="eliminarTemplate(modelo.id_modelo_equipo,modelo.modelo_equipo,'modelo')" 
+								data-toggle="modal" data-target="#myModalEliminar">
+								<i class="material-icons">delete</i>
+							</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<div class="fixed-action-btn" style="bottom: 45px; right: 24px;">
+			<a class="btn-floating btn-large waves-effect waves-light green" data-toggle="modal" data-target="#myModal4" ng-click="NuevoModelo.modelo_equipo=''">
+				<i class="large material-icons">add</i>
+			</a>
+		</div>
+		<div id="myModal4" class="modal fade" role="dialog">
+			<div class="modal-dialog">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<form ng-submit="agregarModelo()">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4 class="modal-title">Agregar Modelo de equipo</h4>
+						</div>
+						<div class="modal-body">
+							<label for="">Modelo de equipo:</label>
+							<input class="inputUsuario" 
+							ng-model='NuevoModelo.modelo_equipo' 
+							class="validate" required="" aria-required="true" >
+						</div>
+						<div class="modal-footer">
+							<div id="botoneraModalClasificacion">
+								<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+								<button type="submit" class="btn green">Agregar</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="myModalEliminar" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<form ng-submit="eliminar()">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">{{"Eliminar "+ catalogo }}</h4>
+				</div>
+				<div class="modal-body">
+					<div style="text-align:center;font-size:15pt;">
+						{{"¿Deseas eliminar '"+elementoEliminar+"'?"}}
+					</div>
+				</div>
+				<div class="modal-footer">
+					<div id="botoneraModalClasificacion">
+						<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn green">Eliminar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+<div id="myModalEditar" class="modal fade" role="dialog">
+	<div class="modal-dialog">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<form ng-submit="editar()">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal">&times;</button>
+					<h4 class="modal-title">{{"Modificar "+ catalogo }}</h4>
+				</div>
+				<div class="modal-body">
+					<input class="inputUsuario"ng-model='elementoEditar'
+					 class="validate" required="" aria-required="true" >
+				</div>
+				<div class="modal-footer">
+					<div id="botoneraModalClasificacion">
+						<button type="button" class="btn red" data-dismiss="modal">Cancelar</button>
+						<button type="submit" class="btn green">Editar</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
+</div>
+<script>
+$( document ).ready(function() {
+	$(document).on("click", "#checkboxMarcaNueva", function(event){
+		if($("#checkboxMarcaNueva").is(':checked')) {  
+			$('#selectMarca').attr('disabled',true);
+			$('#selectMarca').selectpicker('refresh'); 
+		} else {  
+			$('#selectMarca').removeAttr('disabled');
+			$('#selectMarca').selectpicker('refresh');
+			$('#inpputMarcaEquipo').val('');
+		} 
+	});
+
+	$(document).on("click", "#addMarca", function(event){
+		$('#selectMarca').removeAttr('disabled');
+		$('#selectMarca').selectpicker('refresh');
+	});
+});
+</script>

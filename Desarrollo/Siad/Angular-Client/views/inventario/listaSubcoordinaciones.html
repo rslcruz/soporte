@@ -1,0 +1,28 @@
+<div id="listaSubcoordinacionesContent" ng-controller="ListaSubcoordinacionesCtrl">
+	<div id="includeMenucontent">
+		<div ng-include="'views/inventario/menuInventario.html'" onload="includeCargado()"></div>
+	</div>
+	<div>
+		<h1>Inventario IMTA por Subcoordinaciones</h1>	
+	</div>
+
+	<div id="listaContent">
+		<ul collapseElem class="collapsible" data-collapsible="accordion">
+			<li ng-repeat="Area in Areas">
+				<div class="collapsible-header">
+					<i class="material-icons">{{Area.icono_vista}}</i>
+					{{Area.area}}
+				</div>
+				<div class="collapsible-body">
+					<div class="subareasContent">
+						<div ng-repeat="Subarea in Area.subareas" on-finish-render="listaCompleta">
+							<a href="#/inventario/listaInventario/{{Subarea.id_subarea}}/{{Subarea.subarea}}">
+								{{Subarea.subarea}}
+							</a>
+						</div>
+					</div>
+				</div>
+			</li>
+		</ul>
+	</div>
+</div>

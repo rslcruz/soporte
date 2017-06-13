@@ -1,0 +1,100 @@
+#listaInventarioContent h1,#listaSubcoordinacionesContent h1{
+	font-size: 25pt;
+	color: #056caa;
+}
+
+#listaInventarioContent a{
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#listaInventarioContent a:hover{
+	text-decoration: none;
+}
+
+#paginationContent{
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+#listaContent{
+	width:50%;
+	margin:0 auto;
+}
+
+.subareasContent{
+	margin:10px 0px 10px 60px;
+}
+
+.tituloInventario{
+	font-size: 20pt;
+}
+
+#cargandoInventario{
+	width:100%;
+	height: 50px;
+	background-color:white;
+	text-align: center;
+	z-index: 10; 
+}
+
+#listaVaciaTitulo{
+	font-size: 15pt;
+	color:red;
+}
+
+.selectpickerResguardante{
+	margin-top:12px !important;
+	margin-bottom: 15px !important;
+}
+
+#botoneraAgregarInventario{
+	margin-top: 20px;
+	text-align: right;
+}
+
+.tableAdmCatEquipos{
+	width:600px;
+	margin:0 auto;
+}
+
+#botoneraModalClasificacion{
+	display:flex;
+	display:-webkit-flex;
+	-webkit-justify-content: space-around; /* Safari 6.1+ */
+    justify-content: space-around;
+}
+
+#agregarContent{
+	margin-bottom: 20px;
+}
+
+#titulobtnVerInventario{
+	display:flex;
+	display:-webkit-flex;
+	-webkit-justify-content: space-between; /* Safari 6.1+ */
+    justify-content: space-between;
+}
+
+#botoneraModificarInventario{
+	display:flex;
+	display:-webkit-flex;
+	-webkit-justify-content: space-around; /* Safari 6.1+ */
+    justify-content: space-around;
+    margin-top: 30px;
+}
+.radioInventarioActivo{
+	margin-left: 10px !important;
+    margin-top: 10px !important;
+}
+
+#agregarContent textarea{
+    height: 100px;
+    resize: none;
+}
+.lineaDivisora{
+	background-color: #666666;
+	margin:10px auto;
+	width:100%;
+	height:1px;
+}
